@@ -11,7 +11,7 @@ type NavItem = {
   match?: string[];
 };
 
-const navItems: NavItem[] = [
+const baseNavItems: NavItem[] = [
   {
     label: "Home",
     href: "/home",
@@ -44,20 +44,29 @@ const navItems: NavItem[] = [
   },
 ];
 
+function deriveRoutePrefix(pathname: string): string {
+  if (pathname.startsWith("/startup")) return "/startup";
+  return "";
+}
+
 function isItemActive(pathname: string, item: NavItem) {
   if (!pathname) return false;
-
   if (pathname === item.href) return true;
-
   if (item.match?.length) {
     return item.match.some((route) => pathname.startsWith(route));
   }
-
   return false;
 }
 
 export default function BottomNav() {
   const pathname = usePathname();
+  const prefix = deriveRoutePrefix(pathname);
+
+  const navItems = baseNavItems.map((item) => ({
+    ...item,
+    href: `${prefix}${item.href}`,
+    match: item.match?.map((route) => `${prefix}${route}`),
+  }));
 
   return (
     <nav className="sync-bottom-nav" aria-label="Bottom Navigation">

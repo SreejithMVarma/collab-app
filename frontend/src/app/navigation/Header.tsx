@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Bell, CircleUserRound, Plus } from "lucide-react";
 
@@ -14,6 +14,11 @@ interface HeaderProps {
   variant?: HeaderVariant;
 }
 
+function deriveRoutePrefix(pathname: string): string {
+  if (pathname.startsWith("/startup")) return "/startup";
+  return "";
+}
+
 export default function Header({
   title,
   subtitle,
@@ -21,6 +26,9 @@ export default function Header({
   variant = "default",
 }: HeaderProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const prefix = deriveRoutePrefix(pathname);
+
   const [menuOpen, setMenuOpen] = useState(false);
   const menuRef = useRef<HTMLDivElement | null>(null);
 
@@ -56,7 +64,7 @@ export default function Header({
           {variant === "profile" ? (
             <>
               <button
-                onClick={() => router.push("/qr")}
+                onClick={() => router.push(`${prefix}/qr`)}
                 className="sync-page-actions__btn"
                 aria-label="QR"
                 title="QR"
@@ -101,7 +109,7 @@ export default function Header({
           ) : (
             <>
               <Link
-                href="/create"
+                href={`${prefix}/create`}
                 className="sync-page-actions__btn"
                 aria-label="Create"
                 title="Create"
@@ -110,7 +118,7 @@ export default function Header({
               </Link>
 
               <Link
-                href="/notifications"
+                href={`${prefix}/notifications`}
                 className="sync-page-actions__btn"
                 aria-label="Notifications"
                 title="Notifications"
@@ -122,7 +130,7 @@ export default function Header({
               </Link>
 
               <Link
-                href="/profile"
+                href={`${prefix}/profile`}
                 className="sync-page-actions__btn"
                 aria-label="Profile"
                 title="Profile"
