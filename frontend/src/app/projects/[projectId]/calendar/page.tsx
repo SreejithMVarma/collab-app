@@ -2,6 +2,8 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useParams, useRouter } from "next/navigation";
+import Header from "@/app/navigation/Header";
+import BottomNav from "@/app/navigation/BottomNav";
 import { Card, CardContent, CardHeader, CardTitle } from "@/app/ui/card";
 import {
   CalendarGrid,
@@ -74,16 +76,22 @@ export default function ProjectCalendarPage() {
 
   if (!projectId) {
     return (
-      <main className="min-h-screen bg-slate-50 px-4 py-6 text-slate-900">
-        <div className="mx-auto max-w-5xl rounded-2xl border border-slate-200 bg-white p-6">
-          <p className="text-sm text-slate-500">Loading project calendar...</p>
+      <div className="sync-theme-page sync-page-with-bottom-nav min-h-screen">
+        <Header title="Calendar" showNotificationDot={true} />
+        <div className="mx-auto w-full max-w-[480px] px-4 py-6">
+          <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-solid)] p-6">
+            <p className="text-sm text-[var(--text-muted-2)]">Loading project calendar...</p>
+          </div>
         </div>
-      </main>
+        <BottomNav />
+      </div>
     );
   }
 
   return (
-    <div className="flex h-full flex-col gap-4">
+    <div className="sync-theme-page sync-page-with-bottom-nav min-h-screen">
+      <Header title="Calendar" showNotificationDot={true} />
+      <div className="mx-auto flex h-full w-full max-w-[480px] flex-col gap-4 px-4 pb-6 pt-2">
       <TopNavigation
         rangeLabel={rangeLabel}
         view={view}
@@ -148,6 +156,8 @@ export default function ProjectCalendarPage() {
           />
         </div>
       </div>
+      </div>
+      <BottomNav />
     </div>
   );
 }

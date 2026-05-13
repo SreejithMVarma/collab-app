@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
-import { Bell, CircleUserRound, Plus } from "lucide-react";
+import { Bell, MessageSquare, Plus } from "lucide-react";
 
 type HeaderVariant = "default" | "profile";
 
@@ -130,12 +130,12 @@ export default function Header({
               </Link>
 
               <Link
-                href={`${prefix}/profile`}
+                href={`${prefix}/messages`}
                 className="sync-page-actions__btn"
-                aria-label="Profile"
-                title="Profile"
+                aria-label="Messages"
+                title="Messages"
               >
-                <CircleUserRound size={20} />
+                <MessageSquare size={18} />
               </Link>
             </>
           )}

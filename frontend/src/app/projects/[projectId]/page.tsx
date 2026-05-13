@@ -3,6 +3,8 @@
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import Header from "@/app/navigation/Header";
+import BottomNav from "@/app/navigation/BottomNav";
 import { getStoredProjects, saveStoredProjects } from "@/lib/collaboration";
 import {
   AlertTriangle,
@@ -1241,17 +1243,9 @@ setProjectState({
   }
 
   return (
-    <main className="min-h-screen bg-[var(--app-bg)] text-[var(--text-main)]">
-      <div className="mx-auto max-w-7xl px-4 py-6 sm:px-6 lg:px-8">
-        <div className="mb-6 flex items-center gap-3">
-          <Link
-            href="/home"
-            className="inline-flex items-center gap-2 rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-solid)] px-4 py-2 text-sm font-medium text-[var(--text-main)] shadow-sm transition hover:opacity-90"
-          >
-            <ArrowLeft size={16} />
-            Back to Home
-          </Link>
-        </div>
+    <div className="sync-theme-page sync-page-with-bottom-nav min-h-screen">
+      <Header title={projectState.title} showNotificationDot={true} />
+      <div className="mx-auto w-full max-w-[480px] px-4 pb-6 pt-2">
 
         <section className="mb-6 rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-6 shadow-sm">
           <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
@@ -3215,6 +3209,7 @@ setProjectState({
           </div>
         </div>
       )}
-    </main>
+      <BottomNav />
+    </div>
   );
 } 

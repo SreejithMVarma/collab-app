@@ -1,6 +1,7 @@
 "use client"
 
 import { cn } from "@/lib/utils"
+import { Rocket, GraduationCap, Building2 } from "lucide-react"
 
 export type Role = "startup" | "student" | "ecosystem"
 
@@ -8,7 +9,7 @@ interface RoleCard {
   role: Role
   label: string
   description: string
-  emoji: string
+  icon: React.ReactNode
 }
 
 const roles: RoleCard[] = [
@@ -16,19 +17,19 @@ const roles: RoleCard[] = [
     role: "startup",
     label: "Startup",
     description: "Launch and grow your venture with the right support and connections.",
-    emoji: "🚀",
+    icon: <Rocket size={28} />,
   },
   {
     role: "student",
     label: "Student",
     description: "Explore opportunities, collaborate, and build real-world experience.",
-    emoji: "🎓",
+    icon: <GraduationCap size={28} />,
   },
   {
     role: "ecosystem",
     label: "Ecosystem Player",
     description: "Invest, mentor, accelerate, or support the innovation community.",
-    emoji: "🏢",
+    icon: <Building2 size={28} />,
   },
 ]
 
@@ -58,8 +59,8 @@ export function RoleSelection({ onSelectRole }: RoleSelectionProps) {
               "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
             )}
           >
-            <div className="flex size-14 items-center justify-center rounded-xl bg-secondary text-3xl">
-              {card.emoji}
+            <div className="flex size-14 items-center justify-center rounded-xl bg-secondary">
+              {card.icon}
             </div>
             <div className="flex flex-col gap-1.5">
               <h2 className="text-lg font-semibold text-foreground">{card.label}</h2>

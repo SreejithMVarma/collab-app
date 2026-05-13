@@ -1,6 +1,7 @@
 "use client";
 
 import { useParams, useRouter } from "next/navigation";
+import { SearchX } from "lucide-react";
 import Header from "@/app/navigation/Header";
 import BottomNav from "@/app/navigation/BottomNav";
 import { mockStartupProjects } from "@/lib/startup-data";
@@ -17,7 +18,7 @@ export default function StartupProjectDetailPage() {
       <div className="sync-theme-page sync-page-with-bottom-nav min-h-screen">
         <Header title="Project" />
         <div className="mx-auto w-full max-w-[480px] px-4 py-10 text-center">
-          <div className="text-3xl">🔍</div>
+          <SearchX size={32} className="mx-auto text-[var(--text-muted-2)]" />
           <div className="mt-3 text-lg font-bold text-[var(--text-main)]">
             Project not found
           </div>
@@ -41,8 +42,11 @@ export default function StartupProjectDetailPage() {
         {/* Project hero */}
         <div className="mt-4 rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-5 shadow-sm">
           <div className="flex items-center gap-4">
-            <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[var(--muted)] text-3xl">
-              {project.icon}
+            <div
+              className="flex h-16 w-16 items-center justify-center rounded-2xl text-xl font-bold text-white"
+              style={{ background: project.gradient }}
+            >
+              {project.iconLetter}
             </div>
             <div className="min-w-0 flex-1">
               <h2 className="text-xl font-extrabold text-[var(--text-main)]">

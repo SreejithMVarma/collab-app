@@ -5,7 +5,8 @@ export type StartupProject = {
   id: string;
   name: string;
   tagline: string;
-  icon: string; // emoji or icon key
+  gradient: string;
+  iconLetter: string;
 };
 
 export type StartupActiveCollab = {
@@ -69,25 +70,29 @@ export const mockStartupProjects: StartupProject[] = [
     id: "kriya",
     name: "Kriya",
     tagline: "Ground Level Service Network for India.",
-    icon: "🚁",
+    gradient: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    iconLetter: "K",
   },
   {
     id: "printouts-online",
     name: "printouts.online",
     tagline: "Online on-demand print services.",
-    icon: "☁️",
+    gradient: "linear-gradient(135deg, #f093fb 0%, #f5576c 100%)",
+    iconLetter: "P",
   },
   {
     id: "robotic-prosthetics",
     name: "Robotic Prosthetics",
     tagline: "Bio-integrated mobility solution.",
-    icon: "🦾",
+    gradient: "linear-gradient(135deg, #4facfe 0%, #00f2fe 100%)",
+    iconLetter: "R",
   },
   {
     id: "agritech-drones",
     name: "AgriTech Drones",
     tagline: "Precision agriculture with AI drones.",
-    icon: "🌾",
+    gradient: "linear-gradient(135deg, #43e97b 0%, #38f9d7 100%)",
+    iconLetter: "A",
   },
 ];
 
@@ -123,6 +128,36 @@ export const mockStartupActivity: StartupActivityPost[] = [
     images: ["/feed/drone-1.jpg", "/feed/drone-2.jpg", "/feed/drone-3.jpg"],
     text: "We have successfully built an agricultural drone which we are currently testing in the fields of Haryana.",
     time: "2h ago",
+    category: "Updates",
+  },
+  {
+    id: 2005,
+    orgName: "Nexus AI",
+    orgSubtitle: "Update",
+    logoText: "NX",
+    images: ["/feed/campus-1.jpg"],
+    text: "Just hit 10,000 active users on our new AI transcription tool! Huge thanks to the testing team.",
+    time: "4h ago",
+    category: "Updates",
+  },
+  {
+    id: 2006,
+    orgName: "EcoBuild Solutions",
+    orgSubtitle: "Update",
+    logoText: "EB",
+    images: ["/feed/campus-2.jpg"],
+    text: "Our sustainable building materials just passed the final safety certifications. Ready for market launch next month.",
+    time: "1d ago",
+    category: "Updates",
+  },
+  {
+    id: 2007,
+    orgName: "Quantum Logistics",
+    orgSubtitle: "Update",
+    logoText: "QL",
+    images: ["/feed/drone-2.jpg"],
+    text: "Expanding our delivery fleet to 3 more cities. Exciting times ahead for the logistics team!",
+    time: "2d ago",
     category: "Updates",
   },
   {

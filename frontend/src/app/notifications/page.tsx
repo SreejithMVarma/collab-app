@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { Sparkles, Inbox, CheckCircle, MessageCircle, Users, Bell, BellOff } from "lucide-react";
 import Header from "@/app/navigation/Header";
 import BottomNav from "@/app/navigation/BottomNav";
 
@@ -35,20 +36,21 @@ function timeAgo(ts: number) {
   return `${day}d ago`;
 }
 
-function icon(type: NotiType) {
+function NotiIcon({ type }: { type: NotiType }) {
+  const cls = "w-5 h-5";
   switch (type) {
     case "match":
-      return "✨";
+      return <Sparkles className={cls} />;
     case "apply":
-      return "📥";
+      return <Inbox className={cls} />;
     case "status":
-      return "✅";
+      return <CheckCircle className={cls} />;
     case "message":
-      return "💬";
+      return <MessageCircle className={cls} />;
     case "cohort":
-      return "👥";
+      return <Users className={cls} />;
     default:
-      return "🔔";
+      return <Bell className={cls} />;
   }
 }
 
@@ -213,7 +215,7 @@ export default function NotificationsPage() {
         <div className="mt-5 space-y-4">
           {visible.length === 0 ? (
             <div className="rounded-3xl border border-[var(--line-soft)] bg-[var(--surface-solid)] p-6 text-center shadow-sm">
-              <div className="text-2xl">🔕</div>
+              <BellOff size={28} className="mx-auto text-[var(--text-muted-2)]" />
               <div className="mt-2 text-base font-semibold text-[var(--text-main)]">
                 No notifications
               </div>
@@ -229,8 +231,8 @@ export default function NotificationsPage() {
               >
                 <button onClick={() => openNoti(n)} className="w-full text-left">
                   <div className="flex gap-3">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--muted)] text-lg">
-                      {icon(n.type)}
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-2xl bg-[var(--muted)]">
+                      <NotiIcon type={n.type} />
                     </div>
 
                     <div className="min-w-0 flex-1">
