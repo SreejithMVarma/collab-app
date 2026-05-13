@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { Search, Calendar } from "lucide-react";
 import BottomNav from "../navigation/BottomNav";
 import Header from "../navigation/Header";
 
@@ -203,7 +204,7 @@ export default function EventsPage() {
           </div>
 
           <div className="sync-theme-border flex items-center gap-3 rounded-2xl border bg-black/[0.03] px-4 py-3 dark:bg-white/[0.04]">
-            <span className="sync-theme-text-soft text-sm">🔎</span>
+            <Search size={16} className="sync-theme-text-soft" />
             <input
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -336,7 +337,7 @@ export default function EventsPage() {
         <div className="space-y-3">
           {visibleEvents.length === 0 ? (
             <div className="sync-theme-surface sync-theme-border rounded-[22px] border p-6 text-center shadow-sm">
-              <div className="text-3xl">🗓️</div>
+              <div className="text-3xl"><Calendar size={32} className="text-[#111111]" /></div>
               <div className="sync-theme-text-main mt-3 text-base font-semibold">
                 No events found
               </div>

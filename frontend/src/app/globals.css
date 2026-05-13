@@ -184,13 +184,10 @@ body {
 
 .sync-bottom-nav {
   position: fixed;
-  left: 50%;
+  left: 0;
   bottom: 0;
   z-index: 1000;
   width: 100%;
-  max-width: 480px;
-  transform: translateX(-50%);
-  padding: 10px 14px calc(10px + env(safe-area-inset-bottom));
   pointer-events: none;
 }
 
@@ -199,10 +196,9 @@ body {
   display: grid;
   grid-template-columns: repeat(5, minmax(0, 1fr));
   align-items: center;
-  gap: 6px;
-  padding: 8px;
-  border: 1px solid var(--nav-border);
-  border-radius: 26px;
+  gap: 0;
+  padding: 6px 0 calc(6px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--nav-border);
   background: var(--nav-bg);
   backdrop-filter: blur(16px);
   -webkit-backdrop-filter: blur(16px);
@@ -217,21 +213,19 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  border-radius: 18px;
-  padding: 10px 4px 8px;
-  transition: 0.2s;
+  gap: 3px;
+  padding: 6px 4px 4px;
+  transition: color 0.2s;
 }
 
 .sync-bottom-nav__item.is-active {
   color: var(--nav-text-active);
-  background: var(--nav-active-bg);
 }
 
 .sync-bottom-nav__icon-wrap {
   position: relative;
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -239,22 +233,196 @@ body {
 
 .sync-bottom-nav__dot {
   position: absolute;
-  top: 2px;
-  right: 0;
-  width: 7px;
-  height: 7px;
+  top: 0;
+  right: -2px;
+  width: 6px;
+  height: 6px;
   border-radius: 9999px;
   background: #ff3b30;
 }
 
 .sync-bottom-nav__label {
-  font-size: 11px;
+  font-size: 10px;
+  font-weight: 500;
 }
 
 /* ================= PAGE FIX ================= */
 
 .sync-page-with-bottom-nav {
-  padding-bottom: 108px;
+  padding-bottom: 64px;
+}
+
+.device-screen .sync-page-with-bottom-nav {
+  padding-bottom: 0;
+}
+
+/* ================= SCROLL HIDE ================= */
+
+.scroll-hide {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+.scroll-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ================= DEVICE FRAME ================= */
+
+.device-frame-outer {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  background: linear-gradient(135deg, #0f0f14 0%, #1a1a2e 40%, #16213e 70%, #0f0f14 100%);
+  padding: 24px;
+}
+
+.device-bezel {
+  position: relative;
+  width: 396px;
+  background: #111113;
+  border-radius: 44px;
+  border: 1px solid rgba(255,255,255,0.08);
+  box-shadow:
+    0 0 0 2px #222,
+    0 30px 80px rgba(0,0,0,0.6),
+    inset 0 1px 0 rgba(255,255,255,0.05);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.device-status-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 24px 6px;
+  background: var(--app-bg);
+  flex-shrink: 0;
+}
+
+.device-status-time {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+.device-camera {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: #1a1a1e;
+  border: 2px solid #2a2a2e;
+}
+
+.device-status-icons {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.device-status-icons svg {
+  fill: var(--text-main);
+  opacity: 0.7;
+}
+
+.device-screen {
+  height: 780px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+  transform: translateZ(0);
+  background: var(--app-bg);
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.device-screen::-webkit-scrollbar {
+  display: none;
+}
+
+.device-screen .sync-theme-page {
+  min-height: 100%;
+}
+
+.device-screen .sync-bottom-nav {
+  position: sticky;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.device-screen .sync-page-top {
+  max-width: 100%;
+}
+
+.device-home-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 0 10px;
+  background: var(--app-bg);
+  flex-shrink: 0;
+}
+
+.device-home-bar {
+  width: 134px;
+  height: 5px;
+  border-radius: 100px;
+  background: var(--text-main);
+  opacity: 0.2;
+}
+
+/* ================= COVERFLOW CAROUSEL ================= */
+
+.coverflow-container {
+  position: relative;
+  width: 100%;
+  padding: 8px 0;
+}
+
+.coverflow-track {
+  position: relative;
+  height: 280px;
+  touch-action: pan-y;
+  cursor: grab;
+}
+
+.coverflow-track:active {
+  cursor: grabbing;
+}
+
+.coverflow-card {
+  width: 82%;
+  margin-left: -41%;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.coverflow-dots {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+  margin-top: 12px;
+}
+
+.coverflow-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  border: none;
+  background: var(--line-soft);
+  transition: 0.2s;
+  cursor: pointer;
+  padding: 0;
+}
+
+.coverflow-dot.is-active {
+  width: 20px;
+  border-radius: 4px;
+  background: var(--text-main);
 }
 
 /* ================= GLOBAL UTILITIES ================= */

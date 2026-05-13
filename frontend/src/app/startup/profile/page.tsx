@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { MapPin } from "lucide-react";
 import Header from "@/app/navigation/Header";
 import BottomNav from "@/app/navigation/BottomNav";
 import { mockStartupProjects } from "@/lib/startup-data";
@@ -120,8 +121,9 @@ export default function StartupProfilePage() {
               <div className="mt-1 text-sm text-[var(--text-muted-2)]">
                 {companyProfile.tagline}
               </div>
-              <div className="mt-1 text-sm text-[var(--text-soft-2)]">
-                📍 {companyProfile.location} · Est. {companyProfile.founded}
+              <div className="mt-1 flex items-center gap-1 text-sm text-[var(--text-soft-2)]">
+                <MapPin size={13} className="shrink-0" />
+                {companyProfile.location} · Est. {companyProfile.founded}
               </div>
             </div>
           </div>
@@ -251,8 +253,11 @@ export default function StartupProfilePage() {
                 className="rounded-[22px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-4 shadow-sm"
               >
                 <div className="flex items-center gap-3">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-[var(--muted)] text-xl">
-                    {p.icon}
+                  <div
+                    className="flex h-10 w-10 items-center justify-center rounded-xl text-sm font-bold text-white"
+                    style={{ background: p.gradient }}
+                  >
+                    {p.iconLetter}
                   </div>
                   <div className="min-w-0 flex-1">
                     <div className="font-semibold text-[var(--text-main)]">

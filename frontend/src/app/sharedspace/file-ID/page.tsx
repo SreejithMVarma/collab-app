@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { FileText, FileBox, Image as ImageIcon, Archive, BarChart2, Folder } from "lucide-react";
 import { sharedFiles } from "@/lib/sharedspace-data";
 
 type FileDetailsPageProps = {
@@ -8,13 +9,13 @@ type FileDetailsPageProps = {
   };
 };
 
-const typeTheme = {
-  doc: { bg: "#F1F1F1", text: "#111111", icon: "📝" },
-  pdf: { bg: "#F3F3F3", text: "#111111", icon: "📕" },
-  zip: { bg: "#EFEFEF", text: "#111111", icon: "🗜️" },
-  image: { bg: "#F5F5F5", text: "#111111", icon: "🖼️" },
-  sheet: { bg: "#F0F0F0", text: "#111111", icon: "📊" },
-  other: { bg: "#F4F4F4", text: "#111111", icon: "📁" },
+const typeTheme: Record<string, { bg: string; text: string; icon: React.ReactNode }> = {
+  doc: { bg: "#F1F1F1", text: "#111111", icon: <FileText size={24} /> },
+  pdf: { bg: "#F3F3F3", text: "#111111", icon: <FileBox size={24} /> },
+  zip: { bg: "#EFEFEF", text: "#111111", icon: <Archive size={24} /> },
+  image: { bg: "#F5F5F5", text: "#111111", icon: <ImageIcon size={24} /> },
+  sheet: { bg: "#F0F0F0", text: "#111111", icon: <BarChart2 size={24} /> },
+  other: { bg: "#F4F4F4", text: "#111111", icon: <Folder size={24} /> },
 };
 
 export default function FileDetailsPage({ params }: FileDetailsPageProps) {

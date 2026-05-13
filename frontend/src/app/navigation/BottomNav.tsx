@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Briefcase, Compass, CalendarDays, MessageSquare } from "lucide-react";
+import { Home, Briefcase, Compass, CalendarDays, CircleUserRound } from "lucide-react";
 
 type NavItem = {
   label: string;
@@ -37,10 +37,10 @@ const baseNavItems: NavItem[] = [
     match: ["/events"],
   },
   {
-    label: "Messages",
-    href: "/messages",
-    icon: MessageSquare,
-    match: ["/messages"],
+    label: "Profile",
+    href: "/profile",
+    icon: CircleUserRound,
+    match: ["/profile"],
   },
 ];
 

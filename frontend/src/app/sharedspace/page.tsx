@@ -2,6 +2,23 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
+import {
+  FileText,
+  FileBox,
+  Image as ImageIcon,
+  Archive,
+  BarChart2,
+  Folder,
+  Bell,
+  MessageSquare,
+  Search,
+  Grid,
+  File,
+  Home,
+  Plus,
+  CalendarDays,
+  User,
+} from "lucide-react";
 import type { SharedFileItem, SharedFileType } from "@/lib/sharedspace-data";
 import { sharedFiles as initialSharedFiles, sharedFolders } from "@/lib/sharedspace-data";
 
@@ -18,14 +35,14 @@ const filterOptions: { key: FilterType; label: string }[] = [
 
 const typeStyles: Record<
   SharedFileType,
-  { bg: string; text: string; icon: string; label: string }
+  { bg: string; text: string; icon: React.ReactNode; label: string }
 > = {
-  doc: { bg: "#F1F1F1", text: "#111111", icon: "📝", label: "Document" },
-  pdf: { bg: "#F3F3F3", text: "#111111", icon: "📕", label: "PDF" },
-  zip: { bg: "#EFEFEF", text: "#111111", icon: "🗜️", label: "ZIP" },
-  image: { bg: "#F5F5F5", text: "#111111", icon: "🖼️", label: "Image" },
-  sheet: { bg: "#F0F0F0", text: "#111111", icon: "📊", label: "Sheet" },
-  other: { bg: "#F4F4F4", text: "#111111", icon: "📁", label: "File" },
+  doc: { bg: "#F1F1F1", text: "#111111", icon: <FileText size={20} />, label: "Document" },
+  pdf: { bg: "#F3F3F3", text: "#111111", icon: <FileBox size={20} />, label: "PDF" },
+  zip: { bg: "#EFEFEF", text: "#111111", icon: <Archive size={20} />, label: "ZIP" },
+  image: { bg: "#F5F5F5", text: "#111111", icon: <ImageIcon size={20} />, label: "Image" },
+  sheet: { bg: "#F0F0F0", text: "#111111", icon: <BarChart2 size={20} />, label: "Sheet" },
+  other: { bg: "#F4F4F4", text: "#111111", icon: <Folder size={20} />, label: "File" },
 };
 
 function getSectionHeading(filter: FilterType, folderName: string | null) {
@@ -130,7 +147,7 @@ function FolderRow({
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-[16px] text-base sm:h-11 sm:w-11 sm:rounded-[18px] sm:text-lg"
           style={{ backgroundColor: color }}
         >
-          📁
+          <Folder size={20} className="text-[#111111]" />
         </div>
 
         <div className="min-w-0">
@@ -217,19 +234,19 @@ export default function SharedSpacePage() {
         className="flex h-11 w-11 items-center justify-center rounded-[17px] border border-[#E7E7E7] bg-white text-base shadow-[0_4px_16px_rgba(0,0,0,0.04)] sm:h-12 sm:w-12 sm:rounded-[18px] sm:text-lg"
         aria-label="Notifications"
       >
-        🔔
+        <Bell size={20} className="text-[#111111]" />
       </button>
       <button
         className="flex h-11 w-11 items-center justify-center rounded-[17px] border border-[#E7E7E7] bg-white text-base shadow-[0_4px_16px_rgba(0,0,0,0.04)] sm:h-12 sm:w-12 sm:rounded-[18px] sm:text-lg"
         aria-label="Quick scan"
       >
-        ▣
+        <Grid size={20} className="text-[#111111]" />
       </button>
       <button
         className="flex h-11 w-11 items-center justify-center rounded-[17px] border border-[#E7E7E7] bg-white text-base shadow-[0_4px_16px_rgba(0,0,0,0.04)] sm:h-12 sm:w-12 sm:rounded-[18px] sm:text-lg"
         aria-label="Messages"
       >
-        💬
+        <MessageSquare size={20} className="text-[#111111]" />
       </button>
     </div>
   </div>
@@ -245,7 +262,7 @@ export default function SharedSpacePage() {
 
         <div className="mt-4 rounded-[24px] border border-[#E6EAF2] bg-white px-4 py-3 shadow-[0_10px_30px_rgba(15,23,42,0.05)] sm:mt-5 sm:rounded-[28px] sm:py-4">
           <div className="flex items-center gap-3">
-            <div className="text-lg text-[#111111] sm:text-xl">⌕</div>
+            <div className="text-lg text-[#111111] sm:text-xl"><Search size={20} /></div>
             <input
               value={searchText}
               onChange={(e) => setSearchText(e.target.value)}
@@ -412,23 +429,23 @@ export default function SharedSpacePage() {
 
       <nav className="fixed bottom-0 left-0 right-0 z-40 mx-auto flex w-full max-w-md items-center justify-around border-t border-[#E7E7E7] bg-white px-3 py-3 shadow-[0_-4px_18px_rgba(0,0,0,0.03)] sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
         <Link href="/home" className="flex flex-col items-center gap-1 text-[#6C6C6C]">
-          <span className="text-xl">⌂</span>
+          <Home size={20} />
           <span className="text-[12px]">Home</span>
         </Link>
         <Link href="/explore" className="flex flex-col items-center gap-1 text-[#6C6C6C]">
-          <span className="text-xl">⌕</span>
+          <Search size={20} />
           <span className="text-[12px]">Explore</span>
         </Link>
         <Link href="/create" className="flex flex-col items-center gap-1 text-[#6C6C6C]">
-          <span className="text-xl">＋</span>
+          <Plus size={20} />
           <span className="text-[12px]">Create</span>
         </Link>
         <Link href="/events" className="flex flex-col items-center gap-1 text-[#111111]">
-          <span className="text-xl">◫</span>
+          <CalendarDays size={20} />
           <span className="text-[12px] font-semibold">Events</span>
         </Link>
         <Link href="/profile" className="flex flex-col items-center gap-1 text-[#6C6C6C]">
-          <span className="text-xl">◉</span>
+          <User size={20} />
           <span className="text-[12px]">Profile</span>
         </Link>
       </nav>
@@ -459,7 +476,7 @@ export default function SharedSpacePage() {
 
               <div className="mt-5 grid grid-cols-1 gap-3 sm:grid-cols-2">
                 <button className="rounded-[22px] border border-[#E7E7E7] bg-[#F7F7F7] p-4 text-left">
-                  <div className="text-2xl">📄</div>
+                  <div className="text-2xl"><File size={24} className="text-[#111111]" /></div>
                   <p className="mt-3 text-[15px] font-semibold text-[#111111]">
                     Choose files
                   </p>
@@ -469,7 +486,7 @@ export default function SharedSpacePage() {
                 </button>
 
                 <button className="rounded-[22px] border border-[#E7E7E7] bg-[#F7F7F7] p-4 text-left">
-                  <div className="text-2xl">📁</div>
+                  <div className="text-2xl"><Folder size={24} className="text-[#111111]" /></div>
                   <p className="mt-3 text-[15px] font-semibold text-[#111111]">
                     Select folder
                   </p>

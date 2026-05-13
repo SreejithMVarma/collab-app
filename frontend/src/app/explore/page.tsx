@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
+import { Search, Bot, BarChart2, Globe, Palette, Brain, Sparkles, Pin, Mic, FileText } from "lucide-react";
 import { useRouter } from "next/navigation";
 import Header from "../navigation/Header";
 import BottomNav from "../navigation/BottomNav";
@@ -84,11 +85,11 @@ const mockAllRequests: CollaborationPost[] = [
 ];
 
 const INTERESTS = [
-  { key: "robotics", label: "Robotics", emoji: "🤖" },
-  { key: "data-science", label: "Data Science", emoji: "📊" },
-  { key: "web-dev", label: "Web Dev", emoji: "🌐" },
-  { key: "design", label: "Design", emoji: "🎨" },
-  { key: "ai", label: "AI", emoji: "🧠" },
+  { key: "robotics", label: "Robotics", icon: <Bot size={20} /> },
+  { key: "data-science", label: "Data Science", icon: <BarChart2 size={20} /> },
+  { key: "web-dev", label: "Web Dev", icon: <Globe size={20} /> },
+  { key: "design", label: "Design", icon: <Palette size={20} /> },
+  { key: "ai", label: "AI", icon: <Brain size={20} /> },
 ];
 
 function getDisplayName(): string {
@@ -223,28 +224,32 @@ export default function ExplorePage() {
   const SectionButton = ({
     title,
     subtitle,
-    emoji,
+    icon,
     isActive,
     onClick,
   }: {
     title: string;
     subtitle: string;
-    emoji: string;
+    icon: React.ReactNode;
     isActive: boolean;
     onClick: () => void;
   }) => {
     return (
       <button
         onClick={onClick}
-        className={`min-w-[220px] rounded-2xl border p-4 shadow-sm text-left transition ${
+        className={`flex shrink-0 items-center gap-3 rounded-2xl border p-3 text-left transition ${
           isActive
-            ? "border-[var(--text-main)] bg-[var(--surface-solid)]"
-            : "border-[var(--line-soft)] bg-[var(--surface-solid)] hover:shadow-md"
+            ? "border-[var(--text-main)] bg-[var(--surface-solid)] shadow-sm"
+            : "border-[var(--line-soft)] bg-[var(--surface-solid)]"
         }`}
       >
-        <div className="text-2xl">{emoji}</div>
-        <div className="mt-2 font-bold text-[var(--text-main)]">{title}</div>
-        <div className="mt-1 text-xs text-[var(--text-muted-2)]">{subtitle}</div>
+        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--muted)] text-[var(--text-main)]">
+          {icon}
+        </div>
+        <div>
+          <div className="font-bold text-[var(--text-main)]">{title}</div>
+          <div className="text-xs text-[var(--text-muted-2)]">{subtitle}</div>
+        </div>
       </button>
     );
   };
@@ -481,7 +486,7 @@ export default function ExplorePage() {
             <SectionButton
               title="Recommended"
               subtitle="AI-matched suggestions (demo)"
-              emoji="✨"
+              icon={<Sparkles size={24} />}
               isActive={view === "recommended"}
               onClick={() => {
                 setView("recommended");
@@ -493,7 +498,7 @@ export default function ExplorePage() {
             <SectionButton
               title="Requests"
               subtitle="Browse all public requests"
-              emoji="📌"
+              icon={<Pin size={24} />}
               isActive={view === "requests"}
               onClick={() => {
                 setView("requests");
@@ -505,7 +510,7 @@ export default function ExplorePage() {
             <SectionButton
               title="Startup Spotlight"
               subtitle="Weekly startup podcast + details"
-              emoji="🎙️"
+              icon={<Mic size={24} />}
               isActive={view === "startup-spotlight"}
               onClick={() => {
                 setView("startup-spotlight");
@@ -517,7 +522,7 @@ export default function ExplorePage() {
             <SectionButton
               title="My Requests"
               subtitle="Requests you posted"
-              emoji="🧾"
+              icon={<FileText size={24} />}
               isActive={view === "my-requests"}
               onClick={() => {
                 setView("my-requests");
@@ -529,7 +534,7 @@ export default function ExplorePage() {
             <SectionButton
               title="Interests"
               subtitle="Robotics, Data Science, Web…"
-              emoji="🧠"
+              icon={<Brain size={24} />}
               isActive={view === "interests"}
               onClick={() => {
                 setView("interests");
@@ -571,7 +576,9 @@ export default function ExplorePage() {
                         : "border-[var(--line-soft)] hover:shadow-md"
                     }`}
                   >
-                    <div className="text-2xl">{i.emoji}</div>
+                    <div className="flex items-center justify-center rounded-full bg-[var(--muted)] p-2 text-[var(--text-main)] w-fit">
+                      {i.icon}
+                    </div>
                     <div className="mt-2 font-bold text-[var(--text-main)]">{i.label}</div>
                     <div className="mt-1 text-xs text-[var(--text-muted-2)]">
                       Tap to filter posts
@@ -586,7 +593,7 @@ export default function ExplorePage() {
         {view !== "startup-spotlight" && (
           <div className="mb-6">
             <div className="flex items-center gap-3 rounded-2xl border border-[var(--field-border)] bg-[var(--field-bg)] px-4 py-3 shadow-sm">
-              <span className="text-[var(--text-muted-2)]">🔎</span>
+              <Search size={16} className="text-[var(--text-muted-2)]" />
               <input
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}

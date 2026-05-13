@@ -165,7 +165,7 @@ export default function ProfileBuilderPage() {
 
   function finish() {
     setDone(true);
-    addBotText("✅ All set. Your profile draft is ready. Tap Continue →");
+    addBotText("All set. Your profile draft is ready. Tap Continue →");
   }
 
   async function onSend() {

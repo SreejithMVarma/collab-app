@@ -10,7 +10,8 @@ import Header from "../navigation/Header";
 
 export function MessagingPage() {
   const router = useRouter()
-  const isMobile = useIsMobile()
+  // Force mobile view always
+  const isMobile = true
   const [activeChatId, setActiveChatId] = useState(contacts[0].id)
   const [searchQuery, setSearchQuery] = useState("")
   const [showMobileChat, setShowMobileChat] = useState(false)
@@ -34,7 +35,7 @@ export function MessagingPage() {
   const showChat = !isMobile || showMobileChat
 
   return (
-    <div className="flex h-screen flex-col">
+    <div className="flex h-[100dvh] flex-col sm:h-full">
       <Header
               title="Chats"
             />
