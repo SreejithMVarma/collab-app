@@ -348,4 +348,96 @@ export const projects: ProjectItem[] = [
       },
     ],
   },
+  {
+    id: "kriya",
+    title: "Kriya",
+    tagline: "Ground Level Service Network for India.",
+    description: "Kriya is a ground-level service network designed to connect rural and semi-urban India with essential services.",
+    category: "Service Network",
+    createdBy: "Syncreate",
+    dueDate: "2026-06-15",
+    team: [
+      { id: 1, name: "Harshith", role: "Product Manager", avatar: "H" },
+      { id: 2, name: "Rahul", role: "Lead Developer", avatar: "R" },
+    ],
+    tasks: [
+      { id: 1, title: "Initial network mapping", assignee: "Harshith", priority: "High", status: "Done", dueDate: "2026-04-10" },
+      { id: 2, title: "Onboard early service providers", assignee: "Rahul", priority: "High", status: "In Progress", dueDate: "2026-04-20" },
+    ],
+    milestones: [
+      { id: 1, title: "MVP Launch", description: "Launch the basic service connection framework in select districts.", dueDate: "2026-05-01", owner: "Harshith", priority: "Critical", linkedTaskIds: [1, 2] },
+    ],
+    activity: [
+      { id: 1, text: "Harshith completed initial network mapping.", time: "1 day ago" },
+    ],
+  },
+  {
+    id: "printouts-online",
+    title: "printouts.online",
+    tagline: "Online on-demand print services.",
+    description: "A fast, scalable on-demand printing service allowing students and businesses to order prints and get them delivered to their doorstep.",
+    category: "E-Commerce",
+    createdBy: "Syncreate",
+    dueDate: "2026-05-20",
+    team: [
+      { id: 1, name: "Divya", role: "UI/UX Designer", avatar: "D" },
+      { id: 2, name: "Rahul", role: "Frontend Developer", avatar: "R" },
+    ],
+    tasks: [
+      { id: 1, title: "Design storefront UI", assignee: "Divya", priority: "Medium", status: "Done", dueDate: "2026-03-15" },
+      { id: 2, title: "Integrate payment gateway", assignee: "Rahul", priority: "High", status: "In Progress", dueDate: "2026-03-22" },
+    ],
+    milestones: [
+      { id: 1, title: "Beta Release", description: "Open print ordering for a limited set of users.", dueDate: "2026-04-01", owner: "Divya", priority: "High", linkedTaskIds: [1, 2] },
+    ],
+    activity: [
+      { id: 1, text: "Divya completed storefront UI design.", time: "2 days ago" },
+    ],
+  },
+  {
+    id: "robotic-prosthetics",
+    title: "Robotic Prosthetics",
+    tagline: "Bio-integrated mobility solution.",
+    description: "Developing accessible and advanced bio-integrated robotic prosthetics for amputees using modern sensors and 3D printing.",
+    category: "HealthTech",
+    createdBy: "Syncreate",
+    dueDate: "2026-08-10",
+    team: [
+      { id: 1, name: "Dr. Smith", role: "Medical Advisor", avatar: "S" },
+      { id: 2, name: "Harshith", role: "Hardware Engineer", avatar: "H" },
+    ],
+    tasks: [
+      { id: 1, title: "Sensor calibration", assignee: "Harshith", priority: "High", status: "In Progress", dueDate: "2026-04-12" },
+      { id: 2, title: "Clinical safety review", assignee: "Dr. Smith", priority: "High", status: "Todo", dueDate: "2026-05-05" },
+    ],
+    milestones: [
+      { id: 1, title: "Prototype V2 Testing", description: "Complete internal safety tests and sensor calibration.", dueDate: "2026-05-15", owner: "Harshith", priority: "Critical", linkedTaskIds: [1, 2] },
+    ],
+    activity: [
+      { id: 1, text: "Hardware assembly for Prototype V2 completed.", time: "3 days ago" },
+    ],
+  },
+  {
+    id: "agritech-drones",
+    title: "AgriTech Drones",
+    tagline: "Precision agriculture with AI drones.",
+    description: "Using AI-powered drones to analyze crop health, optimize watering, and improve agricultural yield precision.",
+    category: "AgriTech",
+    createdBy: "Syncreate",
+    dueDate: "2026-07-25",
+    team: [
+      { id: 1, name: "Divya", role: "Data Analyst", avatar: "D" },
+      { id: 2, name: "Rahul", role: "Drone Pilot/Tester", avatar: "R" },
+    ],
+    tasks: [
+      { id: 1, title: "Flight stability tests", assignee: "Rahul", priority: "High", status: "Done", dueDate: "2026-03-10" },
+      { id: 2, title: "Build AI crop analysis model", assignee: "Divya", priority: "High", status: "In Progress", dueDate: "2026-04-18" },
+    ],
+    milestones: [
+      { id: 1, title: "First Field Test", description: "Successfully run an AI analysis flight over a test farm.", dueDate: "2026-04-25", owner: "Rahul", priority: "High", linkedTaskIds: [1, 2] },
+    ],
+    activity: [
+      { id: 1, text: "Rahul finished flight stability testing under windy conditions.", time: "Last week" },
+    ],
+  }
 ];

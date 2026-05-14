@@ -189,6 +189,7 @@ body {
   z-index: 1000;
   width: 100%;
   pointer-events: none;
+  margin-top: auto;
 }
 
 .sync-bottom-nav__inner {
@@ -343,7 +344,7 @@ body {
 }
 
 .device-screen .sync-theme-page {
-  min-height: 100%;
+  min-height: 100% !important;
 }
 
 .device-screen .sync-bottom-nav {
@@ -430,6 +431,9 @@ body {
 .sync-theme-page {
   background: var(--app-bg);
   color: var(--text-main);
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
 }
 
 .sync-theme-surface {

@@ -78,7 +78,7 @@ function buildQuickLinks(projectId: string) {
   return [
     { label: "Workspace" as const, path: `/projects/${projectId}` },
     { label: "Milestones" as const, path: `/projects/${projectId}` },
-    { label: "Meetings" as const, path: `/projects/${projectId}/meetings` },
+    { label: "Meetings" as const, path: `/projects/${projectId}/calendar` },
   ];
 }
 

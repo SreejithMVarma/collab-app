@@ -22,15 +22,15 @@ export function TopNavigation({
   onCreate: () => void;
 }) {
   return (
-    <div className="flex flex-col gap-3 rounded-xl border bg-card p-3 md:flex-row md:items-center md:justify-between">
-      <div className="flex items-center gap-2">
-        <Button variant="outline" size="sm" onClick={onToday}>Today</Button>
-        <Button variant="outline" size="icon-sm" onClick={onPrev} aria-label="Previous">‹</Button>
-        <Button variant="outline" size="icon-sm" onClick={onNext} aria-label="Next">›</Button>
-        <div className="text-sm font-medium md:text-base">{rangeLabel}</div>
+    <div className="flex flex-col gap-3 rounded-xl border bg-card p-3">
+      <div className="flex items-center gap-2 overflow-x-auto scroll-hide pb-1">
+        <Button variant="outline" size="sm" onClick={onToday} className="shrink-0">Today</Button>
+        <Button variant="outline" size="icon-sm" onClick={onPrev} aria-label="Previous" className="shrink-0">‹</Button>
+        <Button variant="outline" size="icon-sm" onClick={onNext} aria-label="Next" className="shrink-0">›</Button>
+        <div className="shrink-0 whitespace-nowrap text-sm font-medium">{rangeLabel}</div>
       </div>
 
-      <div className="flex items-center justify-between gap-2">
+      <div className="flex items-center justify-between gap-2 overflow-x-auto scroll-hide pb-1">
         <div className="inline-flex rounded-md border bg-background p-1">
           {(["day", "week", "month"] as CalendarView[]).map((item) => (
             <Button

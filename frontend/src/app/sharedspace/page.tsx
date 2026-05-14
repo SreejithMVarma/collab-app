@@ -64,7 +64,7 @@ function CompactFileCard({ file, onRemove }: CompactFileCardProps) {
   const typeStyle = typeStyles[file.type];
 
   return (
-    <div className="rounded-[22px] border border-[#E7E7E7] bg-white p-4 shadow-[0_4px_18px_rgba(0,0,0,0.04)] sm:rounded-[24px]">
+    <div className="rounded-[22px] border border-[#E7E7E7] bg-white p-4 shadow-[0_4px_18px_rgba(0,0,0,0.04)]">
       <div className="flex items-start justify-between gap-3">
         <div className="flex min-w-0 items-start gap-3">
           <div
@@ -138,9 +138,8 @@ function FolderRow({
   return (
     <button
       onClick={onClick}
-      className={`flex w-full items-center justify-between rounded-[20px] border px-4 py-4 text-left shadow-[0_4px_16px_rgba(0,0,0,0.03)] transition sm:rounded-[22px] ${
-        active ? "border-[#111111] bg-[#F6F6F6]" : "border-[#E7E7E7] bg-white"
-      }`}
+      className={`flex w-full items-center justify-between rounded-[20px] border px-4 py-4 text-left shadow-[0_4px_16px_rgba(0,0,0,0.03)] transition sm:rounded-[22px] ${active ? "border-[#111111] bg-[#F6F6F6]" : "border-[#E7E7E7] bg-white"
+        }`}
     >
       <div className="flex min-w-0 items-center gap-3">
         <div
@@ -219,46 +218,46 @@ export default function SharedSpacePage() {
   const sectionHeading = getSectionHeading(activeFilter, activeFolderName);
 
   return (
-    <div className="min-h-screen bg-[#FAFAFA] pb-32 md:pb-36">
-      <div className="mx-auto w-full max-w-md px-4 pt-5 sm:max-w-2xl sm:px-6 md:max-w-4xl lg:max-w-6xl lg:px-8">
+    <div className="relative h-full overflow-hidden bg-[#FAFAFA]">
+      <div className="mx-auto h-full w-full max-w-[480px] overflow-y-auto px-4 pt-4 pb-[180px]">
         <header>
-  <div className="flex items-start justify-between gap-3">
-    <div className="min-w-0 flex-1 pr-2">
-      <h1 className="text-[32px] font-bold leading-[1.5] tracking-[-0.04em] text-[#111111] sm:text-[32px]">
-        Shared Space
-      </h1>
-    </div>
+          <div className="flex items-start justify-between gap-3">
+            <div className="min-w-0 flex-1 pr-2">
+              <h1 className="text-[32px] font-bold leading-[1.5] tracking-[-0.04em] text-[#111111] sm:text-[32px]">
+                Shared Space
+              </h1>
+            </div>
 
-    <div className="flex shrink-0 items-center gap-2">
-      <button
-        className="flex h-11 w-11 items-center justify-center rounded-[17px] border border-[#E7E7E7] bg-white text-base shadow-[0_4px_16px_rgba(0,0,0,0.04)] sm:h-12 sm:w-12 sm:rounded-[18px] sm:text-lg"
-        aria-label="Notifications"
-      >
-        <Bell size={20} className="text-[#111111]" />
-      </button>
-      <button
-        className="flex h-11 w-11 items-center justify-center rounded-[17px] border border-[#E7E7E7] bg-white text-base shadow-[0_4px_16px_rgba(0,0,0,0.04)] sm:h-12 sm:w-12 sm:rounded-[18px] sm:text-lg"
-        aria-label="Quick scan"
-      >
-        <Grid size={20} className="text-[#111111]" />
-      </button>
-      <button
-        className="flex h-11 w-11 items-center justify-center rounded-[17px] border border-[#E7E7E7] bg-white text-base shadow-[0_4px_16px_rgba(0,0,0,0.04)] sm:h-12 sm:w-12 sm:rounded-[18px] sm:text-lg"
-        aria-label="Messages"
-      >
-        <MessageSquare size={20} className="text-[#111111]" />
-      </button>
-    </div>
-  </div>
+            <div className="flex shrink-0 items-center gap-2">
+              <button
+                className="flex h-11 w-11 items-center justify-center rounded-[17px] border border-[#E7E7E7] bg-white text-base shadow-[0_4px_16px_rgba(0,0,0,0.04)] sm:h-12 sm:w-12 sm:rounded-[18px] sm:text-lg"
+                aria-label="Notifications"
+              >
+                <Bell size={20} className="text-[#111111]" />
+              </button>
+              <button
+                className="flex h-11 w-11 items-center justify-center rounded-[17px] border border-[#E7E7E7] bg-white text-base shadow-[0_4px_16px_rgba(0,0,0,0.04)] sm:h-12 sm:w-12 sm:rounded-[18px] sm:text-lg"
+                aria-label="Quick scan"
+              >
+                <Grid size={20} className="text-[#111111]" />
+              </button>
+              <button
+                className="flex h-11 w-11 items-center justify-center rounded-[17px] border border-[#E7E7E7] bg-white text-base shadow-[0_4px_16px_rgba(0,0,0,0.04)] sm:h-12 sm:w-12 sm:rounded-[18px] sm:text-lg"
+                aria-label="Messages"
+              >
+                <MessageSquare size={20} className="text-[#111111]" />
+              </button>
+            </div>
+          </div>
 
-  <p
-    className="mt-4 text-[14px] leading-7 text-[#666666] sm:text-[15px] sm:leading-8"
-    style={{ textAlign: "justify", textJustify: "inter-word" }}
-  >
-    View, organize and open all shared docs, PDFs, images, ZIPs and sheets from
-    your collaboration workspace.
-  </p>
-</header>
+          <p
+            className="mt-4 text-[14px] leading-7 text-[#666666] sm:text-[15px] sm:leading-8"
+            style={{ textAlign: "justify", textJustify: "inter-word" }}
+          >
+            View, organize and open all shared docs, PDFs, images, ZIPs and sheets from
+            your collaboration workspace.
+          </p>
+        </header>
 
         <div className="mt-4 rounded-[24px] border border-[#E6EAF2] bg-white px-4 py-3 shadow-[0_10px_30px_rgba(15,23,42,0.05)] sm:mt-5 sm:rounded-[28px] sm:py-4">
           <div className="flex items-center gap-3">
@@ -279,11 +278,10 @@ export default function SharedSpacePage() {
               <button
                 key={item.key}
                 onClick={() => handleFilterClick(item.key)}
-                className={`shrink-0 rounded-full px-4 py-2.5 text-[14px] font-semibold transition sm:px-5 sm:py-3 sm:text-[15px] ${
-                  active
+                className={`shrink-0 rounded-full px-4 py-2.5 text-[14px] font-semibold transition ${active
                     ? "bg-[#111111] text-white"
                     : "border border-[#E1E1E1] bg-white text-[#4A4A4A]"
-                }`}
+                  }`}
               >
                 {item.label}
               </button>
@@ -291,7 +289,7 @@ export default function SharedSpacePage() {
           })}
         </div>
 
-        <div className="mt-8 grid grid-cols-1 gap-8 lg:grid-cols-[minmax(0,0.95fr)_minmax(0,1.05fr)] lg:items-start">
+        <div className="mt-8 flex flex-col gap-8">
           <div className="space-y-8">
             <section>
               <div className="flex items-center justify-between">
@@ -390,8 +388,8 @@ export default function SharedSpacePage() {
                   {activeFilter !== "all"
                     ? `Showing ${sectionHeading.toLowerCase()}`
                     : selectedFolderId
-                    ? "Showing files inside this folder"
-                    : "Showing all shared files"}
+                      ? "Showing files inside this folder"
+                      : "Showing all shared files"}
                 </p>
               </div>
 
@@ -422,12 +420,12 @@ export default function SharedSpacePage() {
 
       <button
         onClick={() => setShowUploadModal(true)}
-        className="fixed bottom-24 right-4 rounded-full bg-[#111111] px-4 py-2.5 text-[14px] font-semibold text-white shadow-[0_10px_24px_rgba(0,0,0,0.18)] sm:bottom-28 sm:right-6 md:right-8"
+        className="fixed bottom-[104px] right-6 z-50 rounded-full bg-[#111111] px-5 py-3 text-[14px] font-semibold text-white shadow-[0_14px_30px_rgba(0,0,0,0.22)]"
       >
         Upload
       </button>
 
-      <nav className="fixed bottom-0 left-0 right-0 z-40 mx-auto flex w-full max-w-md items-center justify-around border-t border-[#E7E7E7] bg-white px-3 py-3 shadow-[0_-4px_18px_rgba(0,0,0,0.03)] sm:max-w-2xl md:max-w-4xl lg:max-w-6xl">
+      <nav className="fixed bottom-0 left-1/2 z-40 flex w-full max-w-[480px] -translate-x-1/2 items-center justify-around border-t border-[#E7E7E7] bg-white px-3 py-3 shadow-[0_-4px_18px_rgba(0,0,0,0.03)]">
         <Link href="/home" className="flex flex-col items-center gap-1 text-[#6C6C6C]">
           <Home size={20} />
           <span className="text-[12px]">Home</span>
@@ -451,8 +449,8 @@ export default function SharedSpacePage() {
       </nav>
 
       {showUploadModal ? (
-        <div className="fixed inset-0 z-50 bg-black/30 px-4 sm:px-5">
-          <div className="mx-auto flex min-h-screen w-full max-w-md items-end sm:max-w-xl">
+        <div className="fixed inset-0 z-50 bg-black/30 px-4">
+          <div className="mx-auto flex min-h-screen w-full max-w-[480px] items-end pb-4">
             <div className="mb-6 w-full rounded-[28px] border border-[#E7E7E7] bg-white p-5 shadow-[0_16px_50px_rgba(0,0,0,0.12)] sm:rounded-[30px] sm:p-6">
               <div className="mx-auto h-1.5 w-14 rounded-full bg-[#D7D7D7]" />
 

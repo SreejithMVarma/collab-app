@@ -102,8 +102,8 @@ export default function ProjectCalendarPage() {
         onCreate={() => goToCreate()}
       />
 
-      <div className="grid min-h-0 flex-1 gap-4 xl:grid-cols-[280px_1fr]">
-        <div className="hidden space-y-4 overflow-y-auto xl:block">
+      <div className="grid min-h-0 flex-1 gap-4 ">
+        <div className="hidden space-y-4 overflow-y-auto ">
           <MiniMonthCalendar
             selectedDate={anchor}
             eventDates={events.map((event) => event.date)}

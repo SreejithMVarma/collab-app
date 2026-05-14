@@ -465,6 +465,7 @@ export default function ProjectWorkspacePage() {
   }, [projectState]);
 
   const [activeTab, setActiveTab] = useState<WorkspaceTab>("Overview");
+  const [showWorkspace, setShowWorkspace] = useState(false);
 
   const [isAddTaskOpen, setIsAddTaskOpen] = useState(false);
   const [newTaskTitle, setNewTaskTitle] = useState("");
@@ -1244,50 +1245,16 @@ setProjectState({
 
   return (
     <div className="sync-theme-page sync-page-with-bottom-nav min-h-screen">
-      <Header title={projectState.title} showNotificationDot={true} />
+      <Header title={projectState.title} subtitle={projectState.tagline} showNotificationDot={true} />
       <div className="mx-auto w-full max-w-[480px] px-4 pb-6 pt-2">
 
-        <section className="mb-6 rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-6 shadow-sm">
-          <div className="flex flex-col gap-6 lg:flex-row lg:items-start lg:justify-between">
-            <div className="max-w-3xl">
-              <p className="mb-2 inline-flex rounded-full border border-[var(--line-soft)] bg-[var(--muted)] px-3 py-1 text-xs font-semibold tracking-wide text-[var(--text-main)]">
-                {projectState.category}
-              </p>
-
-              <h1 className="text-3xl font-bold tracking-tight text-[var(--text-main)] sm:text-4xl">
-                {projectState.title}
-              </h1>
-
-              <p className="mt-2 text-base text-[var(--text-muted-2)] sm:text-lg">
-                {projectState.tagline}
-              </p>
-
-              <p className="mt-4 max-w-2xl text-sm leading-6 text-[var(--text-muted-2)] sm:text-base">
-                {projectState.description}
-              </p>
-
-              <div className="mt-5 flex flex-wrap gap-3">
-                <button
-                  onClick={openAddTaskModal}
-                  className="rounded-2xl bg-[var(--primary-btn-bg)] px-4 py-2 text-sm font-semibold text-[var(--primary-btn-text)] transition hover:opacity-90"
-                >
-                  Add Task
-                </button>
-
-                <button
-                  onClick={() => setActiveTab("Scrum Board")}
-                  className="rounded-2xl border border-[var(--line-soft)] bg-[var(--muted)] px-4 py-2 text-sm font-semibold text-[var(--text-main)] transition hover:opacity-80"
-                >
-                  Open Scrum Board
-                </button>
-
-                <button
-                  className="rounded-2xl border border-[var(--line-soft)] bg-[var(--muted)] px-4 py-2 text-sm font-semibold text-[var(--text-main)] transition hover:opacity-80"
-                  onClick={openPostUpdateModal}
-                >
-                  Post Update
-                </button>
-
+        {!showWorkspace ? (
+          <section className="mb-6 rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-5 shadow-sm">
+            <div className="flex flex-col gap-5">
+              <div className="flex items-center justify-between">
+                <span className="inline-flex rounded-full border border-[var(--line-soft)] bg-[var(--muted)] px-3 py-1 text-xs font-semibold tracking-wide text-[var(--text-main)]">
+                  {projectState.category}
+                </span>
                 <Link
                   href="/sharedspace"
                   className="rounded-2xl border border-[var(--line-soft)] bg-[var(--muted)] px-4 py-2 text-sm font-semibold text-[var(--text-main)] transition hover:opacity-80"
@@ -1295,76 +1262,90 @@ setProjectState({
                   Shared Space
                 </Link>
               </div>
-            </div>
 
-            <div className="grid w-full max-w-md grid-cols-2 gap-4">
               <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--muted)] p-4">
-                <p className="text-xs uppercase tracking-wide text-[var(--text-muted-2)]">
-                  Progress
-                </p>
-                <p className="mt-2 text-2xl font-bold text-[var(--text-main)]">
-                  {projectProgress}%
-                </p>
-                <div className="mt-3 h-2 rounded-full bg-[var(--line-soft)]">
-                  <div
-                    className="h-2 rounded-full bg-[var(--text-main)]"
-                    style={{ width: `${projectProgress}%` }}
-                  />
+                <div className="flex flex-col gap-3 text-sm text-[var(--text-main)]">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--text-muted-2)] font-medium">Created By</span>
+                    <span className="font-semibold text-right">{projectState.createdBy}</span>
+                  </div>
+                  <div className="h-px w-full bg-[var(--line-soft)]"></div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--text-muted-2)] font-medium">Status</span>
+                    <span className="font-semibold text-right">Active - {projectProgress}%</span>
+                  </div>
+                  <div className="h-px w-full bg-[var(--line-soft)]"></div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--text-muted-2)] font-medium">Start Date</span>
+                    <span className="font-semibold text-right">Not scheduled</span>
+                  </div>
+                  <div className="h-px w-full bg-[var(--line-soft)]"></div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--text-muted-2)] font-medium">Due Date</span>
+                    <span className="font-semibold text-right">{projectState.dueDate}</span>
+                  </div>
+                  <div className="h-px w-full bg-[var(--line-soft)]"></div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--text-muted-2)] font-medium">Next Meeting</span>
+                    <span className="font-semibold text-right">Not scheduled</span>
+                  </div>
+                  <div className="h-px w-full bg-[var(--line-soft)]"></div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-[var(--text-muted-2)] font-medium">Last Updated</span>
+                    <span className="font-semibold text-right">{projectState.activity[0]?.time || "Recently"}</span>
+                  </div>
                 </div>
               </div>
 
-              <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--muted)] p-4">
-                <p className="text-xs uppercase tracking-wide text-[var(--text-muted-2)]">
-                  Due Date
-                </p>
-                <p className="mt-2 text-lg font-semibold text-[var(--text-main)]">
-                  {projectState.dueDate}
+              <div>
+                <h3 className="mb-2 text-sm font-bold text-[var(--text-main)]">Description</h3>
+                <p className="text-sm leading-relaxed text-[var(--text-muted-2)]">
+                  {projectState.description}
                 </p>
               </div>
 
-              <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--muted)] p-4">
-                <p className="text-xs uppercase tracking-wide text-[var(--text-muted-2)]">
-                  Tasks
-                </p>
-                <p className="mt-2 text-2xl font-bold text-[var(--text-main)]">
-                  {projectState.tasks.length}
-                </p>
-              </div>
-
-              <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--muted)] p-4">
-                <p className="text-xs uppercase tracking-wide text-[var(--text-muted-2)]">
-                  Team
-                </p>
-                <p className="mt-2 text-2xl font-bold text-[var(--text-main)]">
-                  {projectState.team.length}
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="mb-6 rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-3 shadow-sm">
-          <div className="flex flex-wrap gap-2">
-            {WORKSPACE_TABS.map((tab) => (
               <button
-                key={tab}
-                onClick={() => setActiveTab(tab)}
-                className={`rounded-2xl px-4 py-2 text-sm font-semibold transition ${
-                  activeTab === tab
-                    ? "bg-[var(--text-main)] text-[var(--background)] shadow-sm"
-                    : "bg-[var(--muted)] text-[var(--text-main)] hover:opacity-80"
-                }`}
+                onClick={() => setShowWorkspace(true)}
+                className="mt-2 w-full rounded-2xl bg-[var(--primary-btn-bg)] px-4 py-3 text-center text-sm font-bold text-[var(--primary-btn-text)] transition hover:opacity-90"
               >
-                {tab}
+                Open Workspace
               </button>
-            ))}
-          </div>
-        </section>
+            </div>
+          </section>
+        ) : (
+          <>
+            <div className="mb-4">
+              <button
+                onClick={() => setShowWorkspace(false)}
+                className="flex items-center gap-2 rounded-xl px-2 py-1 text-sm font-semibold text-[var(--text-muted-2)] transition hover:text-[var(--text-main)]"
+              >
+                <ArrowLeft size={16} />
+                Back to Summary
+              </button>
+            </div>
+
+            <section className="mb-6 rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-3 shadow-sm">
+              <div className="flex flex-wrap gap-2">
+                {WORKSPACE_TABS.map((tab) => (
+                  <button
+                    key={tab}
+                    onClick={() => setActiveTab(tab)}
+                    className={`rounded-2xl px-4 py-2 text-sm font-semibold transition ${
+                      activeTab === tab
+                        ? "bg-[var(--text-main)] text-[var(--background)] shadow-sm"
+                        : "bg-[var(--muted)] text-[var(--text-main)] hover:opacity-80"
+                    }`}
+                  >
+                    {tab}
+                  </button>
+                ))}
+              </div>
+            </section>
 
         {activeTab === "Overview" && (
-          <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-            <div className="space-y-6 xl:col-span-2">
-              <section className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
+          <section className="grid grid-cols-1 gap-6 ">
+            <div className="space-y-6 ">
+              <section className="grid grid-cols-1 gap-4 ">
                 <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-solid)] p-5 shadow-sm">
                   <div className="flex items-center justify-between">
                     <div>
@@ -1574,7 +1555,7 @@ setProjectState({
         {activeTab === "Tasks" && (
           <section className="rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-5 shadow-sm">
             <div className="mb-5 flex flex-col gap-4">
-              <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="flex flex-col gap-4 ">
                 <div>
                   <h2 className="text-xl font-bold text-[var(--text-main)]">
                     Task Tracker
@@ -1592,7 +1573,7 @@ setProjectState({
                 </button>
               </div>
 
-              <div className="grid grid-cols-1 gap-3 md:grid-cols-4">
+              <div className="grid grid-cols-1 gap-3 ">
                 <input
                   type="text"
                   placeholder="Search tasks..."
@@ -1828,10 +1809,10 @@ setProjectState({
         )}
 
         {activeTab === "Updates" && (
-          <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-            <div className="space-y-6 xl:col-span-2">
+          <section className="grid grid-cols-1 gap-6 ">
+            <div className="space-y-6 ">
               <div className="rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-5 shadow-sm">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <div className="flex flex-col gap-4 ">
                   <div>
                     <h2 className="text-xl font-bold text-[var(--text-main)]">
                       Project Updates
@@ -1960,7 +1941,7 @@ setProjectState({
 
         {activeTab === "Milestones" && (
           <section className="space-y-6">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 ">
               <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-solid)] p-5 shadow-sm">
                 <div className="flex items-center justify-between">
                   <div>
@@ -2011,7 +1992,7 @@ setProjectState({
             </div>
 
             <div className="rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-5 shadow-sm">
-              <div className="mb-5 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              <div className="mb-5 flex flex-col gap-4 ">
                 <div>
                   <h2 className="text-xl font-bold text-[var(--text-main)]">
                     Milestones Roadmap
@@ -2055,7 +2036,7 @@ setProjectState({
                       className="rounded-[28px] border border-[var(--line-soft)] bg-[var(--muted)] p-5"
                     >
                       <div className="flex flex-col gap-4">
-                        <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
+                        <div className="flex flex-col gap-4 ">
                           <div className="flex min-w-0 items-start gap-4">
                             <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-solid)] text-[var(--text-main)] shadow-sm">
                               <span className="text-sm font-bold">{index + 1}</span>
@@ -2143,7 +2124,7 @@ setProjectState({
                           </div>
                         </div>
 
-                        <div className="grid grid-cols-1 gap-3 md:grid-cols-2 xl:grid-cols-3">
+                        <div className="grid grid-cols-1 gap-3 ">
                           <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-solid)] p-4 shadow-sm">
                             <p className="text-xs uppercase tracking-wide text-[var(--text-muted-2)]">
                               Linked Tasks
@@ -2212,8 +2193,8 @@ setProjectState({
         )}
 
         {activeTab === "Team" && (
-          <section className="grid grid-cols-1 gap-6 xl:grid-cols-3">
-            <div className="xl:col-span-2 rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-5 shadow-sm">
+          <section className="grid grid-cols-1 gap-6 ">
+            <div className="rounded-[28px] border border-[var(--line-soft)] bg-[var(--surface-solid)] p-5 shadow-sm">
               <div className="mb-5 flex items-center justify-between">
                 <div>
                   <h2 className="text-xl font-bold text-[var(--text-main)]">
@@ -2225,7 +2206,7 @@ setProjectState({
                 </div>
               </div>
 
-              <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 ">
                 {projectState.team.map((member) => (
                   <div
                     key={member.id}
@@ -2265,6 +2246,8 @@ setProjectState({
             </aside>
           </section>
         )}
+        </>
+        )}
       </div>
 
       {isAddTaskOpen && (
@@ -2303,7 +2286,7 @@ setProjectState({
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 ">
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-[var(--text-main)]">
                     Assignee
@@ -2432,7 +2415,7 @@ setProjectState({
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <div className="grid grid-cols-1 gap-4 ">
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-[var(--text-main)]">
                     Assignee
@@ -2614,7 +2597,7 @@ setProjectState({
               </button>
             </div>
 
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+            <div className="grid grid-cols-1 gap-4 ">
               <div className="rounded-2xl border border-[var(--line-soft)] bg-[var(--muted)] p-4">
                 <p className="text-xs font-semibold uppercase tracking-wide text-[var(--text-muted-2)]">
                   Assignee
@@ -2833,7 +2816,7 @@ setProjectState({
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 ">
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-[var(--text-main)]">
                     Owner
@@ -3014,7 +2997,7 @@ setProjectState({
                 />
               </div>
 
-              <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+              <div className="grid grid-cols-1 gap-4 ">
                 <div>
                   <label className="mb-2 block text-sm font-semibold text-[var(--text-main)]">
                     Owner
