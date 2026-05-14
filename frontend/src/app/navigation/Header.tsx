@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Bell, MessageSquare, Plus } from "lucide-react";
 
@@ -19,6 +20,11 @@ function deriveRoutePrefix(pathname: string): string {
   return "";
 }
 
+function deriveRoutePrefix(pathname: string): string {
+  if (pathname.startsWith("/startup")) return "/startup";
+  return "";
+}
+
 export default function Header({
   title,
   subtitle,
@@ -26,6 +32,9 @@ export default function Header({
   variant = "default",
 }: HeaderProps) {
   const router = useRouter();
+  const pathname = usePathname();
+  const prefix = deriveRoutePrefix(pathname);
+
   const pathname = usePathname();
   const prefix = deriveRoutePrefix(pathname);
 
@@ -64,6 +73,7 @@ export default function Header({
           {variant === "profile" ? (
             <>
               <button
+                onClick={() => router.push(`${prefix}/qr`)}
                 onClick={() => router.push(`${prefix}/qr`)}
                 className="sync-page-actions__btn"
                 aria-label="QR"
@@ -110,6 +120,7 @@ export default function Header({
             <>
               <Link
                 href={`${prefix}/create`}
+                href={`${prefix}/create`}
                 className="sync-page-actions__btn"
                 aria-label="Create"
                 title="Create"
@@ -118,6 +129,7 @@ export default function Header({
               </Link>
 
               <Link
+                href={`${prefix}/notifications`}
                 href={`${prefix}/notifications`}
                 className="sync-page-actions__btn"
                 aria-label="Notifications"
