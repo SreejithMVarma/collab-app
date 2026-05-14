@@ -156,7 +156,16 @@ export default function StartupHomePage() {
             {mockStartupProjects.map((project) => (
               <div
                 key={project.id}
-                className="flex flex-col min-w-[260px] max-w-[260px] shrink-0 overflow-hidden rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-solid)] shadow-sm"
+                onClick={() => go(`/projects/${project.id}`)}
+                role="button"
+                tabIndex={0}
+                onKeyDown={(event) => {
+                  if (event.key === "Enter" || event.key === " ") {
+                    event.preventDefault();
+                    go(`/projects/${project.id}`);
+                  }
+                }}
+                className="flex flex-col min-w-[260px] max-w-[260px] shrink-0 cursor-pointer overflow-hidden rounded-2xl border border-[var(--line-soft)] bg-[var(--surface-solid)] shadow-sm"
               >
                 {/* Top gradient image area */}
                 <div
@@ -183,7 +192,13 @@ export default function StartupHomePage() {
                         key={pill}
                         onClick={(e) => {
                           e.stopPropagation();
-                          go(`/startup/projects/${project.id}`);
+                          if (pill === "Meetings") {
+                            go(`/projects/${project.id}/calendar`);
+                          } else if (pill === "Milestones") {
+                            go(`/projects/${project.id}?tab=Milestones`);
+                          } else {
+                            go(`/projects/${project.id}`);
+                          }
                         }}
                         className="rounded-full border border-[var(--line-soft)] bg-[var(--muted)] px-2 py-0.5 text-[9px] font-semibold text-[var(--text-main)]"
                       >
@@ -269,7 +284,11 @@ export default function StartupHomePage() {
                           key={pill}
                           onClick={(e) => {
                             e.stopPropagation();
-                            go(`/projects/${c.projectId}`);
+                            if (pill === "Meetings") {
+                              go(`/projects/${c.projectId}/calendar`);
+                            } else {
+                              go(`/projects/${c.projectId}`);
+                            }
                           }}
                           className="rounded-full border border-[var(--line-soft)] bg-[var(--muted)] px-2 py-0.5 text-[9px] font-semibold text-[var(--text-main)]"
                         >

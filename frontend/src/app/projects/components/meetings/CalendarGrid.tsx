@@ -66,22 +66,23 @@ export function CalendarGrid({
   }
 
   return (
-    <div className="rounded-xl border bg-card">
-      {/* Sticky header row */}
-      <div
-        className="sticky top-0 z-10 bg-card border-b grid"
-        style={{ gridTemplateColumns: `70px repeat(${days.length}, minmax(0, 1fr))` }}
-      >
-        <div className="p-2 text-xs text-muted-foreground">Time</div>
-        {days.map((day) => (
-          <div key={day.toISOString()} className="border-l p-2 text-xs font-medium">
-            {formatDayLabel(day)}
-          </div>
-        ))}
-      </div>
+    <div className="rounded-xl border bg-card overflow-x-auto scroll-hide">
+      <div className="min-w-fit">
+        {/* Sticky header row */}
+        <div
+          className="sticky top-0 z-10 bg-card border-b grid"
+          style={{ gridTemplateColumns: `70px repeat(${days.length}, minmax(80px, 1fr))` }}
+        >
+          <div className="p-2 text-xs text-muted-foreground shrink-0">Time</div>
+          {days.map((day) => (
+            <div key={day.toISOString()} className="border-l p-2 text-xs font-medium whitespace-nowrap text-center">
+              {formatDayLabel(day)}
+            </div>
+          ))}
+        </div>
 
-      {/* Scrollable hour rows */}
-      <div className="grid" style={{ gridTemplateColumns: `70px repeat(${days.length}, minmax(0, 1fr))` }}>
+        {/* Scrollable hour rows */}
+        <div className="grid" style={{ gridTemplateColumns: `70px repeat(${days.length}, minmax(80px, 1fr))` }}>
         {hours.map((hour) => (
           <Fragment key={`hour-${hour}`}>
             <div key={`label-${hour}`} className="h-12 border-t p-2 text-xs text-muted-foreground">
@@ -110,5 +111,6 @@ export function CalendarGrid({
         ))}
       </div>
     </div>
+  </div>
   );
 }
