@@ -1,4 +1,6 @@
 "use client";
+import { usePathname } from "next/navigation";
+
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
@@ -21,6 +23,9 @@ import {
 } from "lucide-react";
 import type { SharedFileItem, SharedFileType } from "@/lib/sharedspace-data";
 import { sharedFiles as initialSharedFiles, sharedFolders } from "@/lib/sharedspace-data";
+
+const pathname = usePathname();
+const homeHref = pathname.startsWith("/startup") ? "/startup/home" : "/home";
 
 type FilterType = "all" | SharedFileType;
 
@@ -426,7 +431,7 @@ export default function SharedSpacePage() {
       </button>
 
       <nav className="fixed bottom-0 left-1/2 z-40 flex w-full max-w-[480px] -translate-x-1/2 items-center justify-around border-t border-[#E7E7E7] bg-white px-3 py-3 shadow-[0_-4px_18px_rgba(0,0,0,0.03)]">
-        <Link href="/home" className="flex flex-col items-center gap-1 text-[#6C6C6C]">
+        <Link href={homeHref} className="flex flex-col items-center gap-1 text-[#6C6C6C]">
           <Home size={20} />
           <span className="text-[12px]">Home</span>
         </Link>
