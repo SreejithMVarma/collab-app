@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { Search, Bot, BarChart2, Globe, Palette, Brain, Sparkles, Pin, Mic, FileText } from "lucide-react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Header from "../navigation/Header";
 import BottomNav from "../navigation/BottomNav";
+import { getContextRoute } from "@/lib/route-utils";
 
 import {
   SAVED_REQUESTS_KEY,
@@ -25,6 +26,39 @@ type ExploreView =
   | "my-requests"
   | "interests"
   | "startup-spotlight";
+
+const SectionButton = ({
+  title,
+  subtitle,
+  icon,
+  isActive,
+  onClick,
+}: {
+  title: string;
+  subtitle: string;
+  icon: React.ReactNode;
+  isActive: boolean;
+  onClick: () => void;
+}) => {
+  return (
+    <button
+      onClick={onClick}
+      className={`flex shrink-0 items-center gap-3 rounded-2xl border p-3 text-left transition ${
+        isActive
+          ? "border-[var(--text-main)] bg-[var(--surface-solid)] shadow-sm"
+          : "border-[var(--line-soft)] bg-[var(--surface-solid)]"
+      }`}
+    >
+      <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--muted)] text-[var(--text-main)]">
+        {icon}
+      </div>
+      <div>
+        <div className="font-bold text-[var(--text-main)]">{title}</div>
+        <div className="text-xs text-[var(--text-muted-2)]">{subtitle}</div>
+      </div>
+    </button>
+  );
+};
 
 const mockAllRequests: CollaborationPost[] = [
   {
@@ -113,40 +147,39 @@ function getDisplayName(): string {
 
 export default function ExplorePage() {
   const router = useRouter();
+  const pathname = usePathname();
 
-  const [name, setName] = useState("User");
+  const [name] = useState(() => getDisplayName());
   const [view, setView] = useState<ExploreView>("recommended");
   const [activeInterest, setActiveInterest] = useState<string | null>(null);
 
   const [query, setQuery] = useState("");
-  const [savedIds, setSavedIds] = useState<number[]>([]);
-  const [appliedIds, setAppliedIds] = useState<number[]>([]);
-  const [myRequests, setMyRequests] = useState<CollaborationPost[]>([]);
-
-  useEffect(() => {
-    setName(getDisplayName());
-
+  const [savedIds, setSavedIds] = useState<number[]>(() => {
     try {
       const raw = localStorage.getItem(SAVED_REQUESTS_KEY);
       const parsed = raw ? JSON.parse(raw) : [];
-      if (Array.isArray(parsed)) setSavedIds(parsed);
-    } catch {}
-
-    try {
-      setAppliedIds(getAppliedRequestIds());
+      return Array.isArray(parsed) ? parsed : [];
     } catch {
-      setAppliedIds([]);
+      return [];
     }
-
+  });
+  const [appliedIds, setAppliedIds] = useState<number[]>(() => {
     try {
-      setMyRequests(getMyRequests());
+      return getAppliedRequestIds();
     } catch {
-      setMyRequests([]);
+      return [];
     }
-  }, []);
+  });
+  const [myRequests] = useState<CollaborationPost[]>(() => {
+    try {
+      return getMyRequests();
+    } catch {
+      return [];
+    }
+  });
 
   const go = (path: string) => {
-    router.push(path);
+    router.push(getContextRoute(pathname, path));
   };
 
   const toggleSave = (id: number) => {
@@ -220,39 +253,6 @@ export default function ExplorePage() {
       ? `Interest: ${INTERESTS.find((x) => x.key === activeInterest)?.label ?? activeInterest}`
       : "Pick an Interest";
   }, [view, activeInterest]);
-
-  const SectionButton = ({
-    title,
-    subtitle,
-    icon,
-    isActive,
-    onClick,
-  }: {
-    title: string;
-    subtitle: string;
-    icon: React.ReactNode;
-    isActive: boolean;
-    onClick: () => void;
-  }) => {
-    return (
-      <button
-        onClick={onClick}
-        className={`flex shrink-0 items-center gap-3 rounded-2xl border p-3 text-left transition ${
-          isActive
-            ? "border-[var(--text-main)] bg-[var(--surface-solid)] shadow-sm"
-            : "border-[var(--line-soft)] bg-[var(--surface-solid)]"
-        }`}
-      >
-        <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl bg-[var(--muted)] text-[var(--text-main)]">
-          {icon}
-        </div>
-        <div>
-          <div className="font-bold text-[var(--text-main)]">{title}</div>
-          <div className="text-xs text-[var(--text-muted-2)]">{subtitle}</div>
-        </div>
-      </button>
-    );
-  };
 
   const renderStartupSpotlight = () => {
     const tags = ["Collaboration", "Startups", "Universities", "Mobile-first"];

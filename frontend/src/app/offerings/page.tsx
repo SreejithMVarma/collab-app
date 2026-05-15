@@ -1,11 +1,12 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Search } from "lucide-react";
 import { Icon } from "@iconify/react";
 import BottomNav from "../navigation/BottomNav";
 import OfferingsChatbot from "@/app/chatbot/page";
+import { getContextRoute } from "@/lib/route-utils";
 
 type OfferingItem = {
   id: string;
@@ -23,6 +24,7 @@ type OfferingItem = {
 
 export default function OfferingsPage() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const [query, setQuery] = useState("");
   const [isOpen, setIsOpen] = useState(false);
@@ -58,15 +60,15 @@ export default function OfferingsPage() {
     const finalQuery = query.trim();
 
     if (!finalQuery) {
-      router.push("/offerings/results");
+      router.push(getContextRoute(pathname, "/offerings/results"));
       return;
     }
 
-    router.push(`/offerings/results?q=${encodeURIComponent(finalQuery)}`);
+    router.push(getContextRoute(pathname, `/offerings/results?q=${encodeURIComponent(finalQuery)}`));
   };
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-black text-white sync-page-with-bottom-nav">
+    <div className="relative min-h-screen w-full overflow-x-hidden bg-black text-white sync-page-with-bottom-nav">
       <video
         autoPlay
         loop
@@ -80,7 +82,7 @@ export default function OfferingsPage() {
 
       <div className="absolute inset-0 bg-black/45" />
 
-      <div className="relative z-10 mx-auto flex h-full w-full max-w-[480px] flex-col px-4 pb-6 pt-4">
+      <div className="relative z-10 mx-auto flex min-h-screen w-full max-w-[480px] flex-col px-4 pb-6 pt-4">
         <div className="mb-3 flex items-start justify-between gap-3">
           <h1 className="text-[2rem] font-bold leading-none tracking-[-0.03em] text-white">
             Offerings
@@ -153,19 +155,19 @@ export default function OfferingsPage() {
 
       if (first?.category) {
         router.push(
-          `/offerings/results?q=${encodeURIComponent(first.category)}`
+          getContextRoute(pathname, `/offerings/results?q=${encodeURIComponent(first.category)}`)
         );
         return;
       }
 
       if (query.trim()) {
         router.push(
-          `/offerings/results?q=${encodeURIComponent(query.trim())}`
+          getContextRoute(pathname, `/offerings/results?q=${encodeURIComponent(query.trim())}`)
         );
         return;
       }
 
-      router.push("/offerings/results");
+      router.push(getContextRoute(pathname, "/offerings/results"));
     }}
   />
 )}

@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { ShieldCheck, Inbox, CheckCircle, MessageCircle, Handshake, Bell, BellOff } from "lucide-react";
 import Header from "@/app/navigation/Header";
 import BottomNav from "@/app/navigation/BottomNav";
+import { getContextRoute } from "@/lib/route-utils";
 
 type NotiType = "verify" | "apply" | "status" | "message" | "collab" | "system";
 
@@ -136,6 +137,7 @@ function saveList(list: NotificationItem[]) {
 
 export default function StartupNotificationsPage() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const [items, setItems] = useState<NotificationItem[]>([]);
   const [filter, setFilter] = useState<"all" | "unread" | "verify">("all");
@@ -189,7 +191,7 @@ export default function StartupNotificationsPage() {
     );
     setItems(updated);
     saveList(updated);
-    if (n.href) router.push(n.href);
+    if (n.href) router.push(getContextRoute(pathname, n.href));
   };
 
   const handleVerify = (id: string, status: "Verified" | "Rejected") => {

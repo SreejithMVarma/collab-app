@@ -1,9 +1,10 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Header from "../navigation/Header";
 import BottomNav from "../navigation/BottomNav";
+import { getContextRoute } from "@/lib/route-utils";
 
 type FooterTab = "home" | "explore" | "create" | "events" | "profile";
 
@@ -49,6 +50,7 @@ type ProfileInfo = {
 
 export default function ProfilePage() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const years = useMemo(
     () => Object.keys(milestoneByYear).map(Number).sort((a, b) => b - a),
@@ -68,7 +70,7 @@ export default function ProfilePage() {
 
   const go = (path: string, ftab?: FooterTab) => {
     if (ftab) setFooterTab(ftab);
-    router.push(path);
+    router.push(getContextRoute(pathname, path));
   };
 
   const milestones = milestoneByYear[activeYear] || [];
@@ -90,7 +92,7 @@ export default function ProfilePage() {
   }, []);
 
   return (
-    <div className="sync-theme-page min-h-screen pb-24">
+    <div className="sync-theme-page sync-page-with-bottom-nav min-h-screen">
       <Header
         title="Profile"
         subtitle="Credibility • milestones • history"

@@ -2,10 +2,11 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useParams } from "next/navigation";
+import { useParams, usePathname } from "next/navigation";
 import Header from "@/app/navigation/Header";
 import BottomNav from "@/app/navigation/BottomNav";
 import { getStoredProjects, saveStoredProjects } from "@/lib/collaboration";
+import { getContextRoute } from "@/lib/route-utils";
 import {
   AlertTriangle,
   ArrowLeft,
@@ -425,6 +426,7 @@ function BoardColumn({
 
 export default function ProjectWorkspacePage() {
   const params = useParams<{ projectId: string }>();
+  const pathname = usePathname();
   const projectId = params?.projectId;
 
   const initialProject = useMemo(() => {
@@ -564,7 +566,7 @@ export default function ProjectWorkspacePage() {
             <span className="font-semibold">{projectId}</span>
           </p>
           <Link
-            href="/projects"
+            href={getContextRoute(pathname, "/projects")}
             className="mt-5 inline-flex rounded-2xl bg-[var(--primary-btn-bg)] px-4 py-2 text-sm font-semibold text-[var(--primary-btn-text)] transition hover:opacity-90"
           >
             Go to Projects
@@ -1256,7 +1258,7 @@ setProjectState({
                   {projectState.category}
                 </span>
                 <Link
-                  href="/sharedspace"
+                  href={getContextRoute(pathname, "/sharedspace")}
                   className="rounded-2xl border border-[var(--line-soft)] bg-[var(--muted)] px-4 py-2 text-sm font-semibold text-[var(--text-main)] transition hover:opacity-80"
                 >
                   Shared Space

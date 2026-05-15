@@ -4,20 +4,9 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { Bell, MessageSquare, Plus } from "lucide-react";
+import { deriveRoutePrefix } from "@/lib/route-utils";
 
 type HeaderVariant = "default" | "profile";
-
-interface HeaderProps {
-  title: string;
-  subtitle?: string;
-  showNotificationDot?: boolean;
-  variant?: HeaderVariant;
-}
-
-function deriveRoutePrefix(pathname: string): string {
-  if (pathname.startsWith("/startup")) return "/startup";
-  return "";
-}
 
 export default function Header({
   title,

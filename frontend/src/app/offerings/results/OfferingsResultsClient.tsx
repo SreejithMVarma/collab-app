@@ -200,7 +200,7 @@ export default function OfferingsResultsClient() {
   };
 
   return (
-    <div className="relative h-screen w-full overflow-hidden bg-black text-white sync-page-with-bottom-nav">
+    <div className="relative min-h-screen w-full overflow-hidden bg-black text-white sync-page-with-bottom-nav">
       <div className="absolute inset-0 z-0">
         {loading ? (
           <div className="flex h-full w-full items-center justify-center bg-black text-white/75">

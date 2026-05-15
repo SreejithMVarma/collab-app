@@ -39,9 +39,9 @@ const companyProfile: CompanyProfile = {
 const teamMembers: TeamMember[] = [
   {
     id: 1,
-    name: "Sreejith M Varma",
+    name: "Harshith",
     role: "Founder & CEO",
-    avatarText: "S",
+    avatarText: "H",
     verified: true,
   },
   {
@@ -99,7 +99,7 @@ export default function StartupProfilePage() {
   const visibleTeam = showAllTeam ? teamMembers : teamMembers.slice(0, 3);
 
   return (
-    <div className="sync-theme-page min-h-screen pb-24">
+    <div className="sync-theme-page sync-page-with-bottom-nav min-h-screen">
       <Header
         title="Profile"
         subtitle="Company profile & team"

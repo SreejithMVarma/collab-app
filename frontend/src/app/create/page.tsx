@@ -2,8 +2,9 @@
 
 import { useMemo, useState } from "react";
 import Header from "../navigation/Header";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import BottomNav from "../navigation/BottomNav";
+import { getContextRoute } from "@/lib/route-utils";
 import {
   addMyRequest,
   deriveInterestTags,
@@ -290,6 +291,7 @@ function getDomainSignals(tags: string[], title: string, problem: string) {
 
 export default function CreateCollaborationPage() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const [error, setError] = useState("");
 
@@ -491,7 +493,7 @@ export default function CreateCollaborationPage() {
 
     addMyRequest(createdPost);
     resetForm();
-    router.push("/explore");
+    router.push(getContextRoute(pathname, "/explore"));
   }
 
   return (

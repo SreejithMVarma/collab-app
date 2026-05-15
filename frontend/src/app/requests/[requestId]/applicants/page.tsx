@@ -4,7 +4,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import {
   createProjectFromAcceptedApplicant,
   getApplicantsForRequest,
@@ -13,9 +13,11 @@ import {
   type CollaborationPost,
   type RequestApplicant,
 } from "@/lib/collaboration";
+import { getContextRoute } from "@/lib/route-utils";
 
 export default function RequestApplicantsPage() {
   const router = useRouter();
+  const pathname = usePathname();
   const params = useParams<{ requestId: string }>();
   const requestId = Number(params?.requestId);
 
@@ -76,7 +78,7 @@ export default function RequestApplicantsPage() {
             Request id is missing or invalid.
           </p>
           <Link
-            href="/explore"
+            href={getContextRoute(pathname, "/explore")}
             className="mt-5 inline-flex rounded-xl bg-[#2D6BFF] px-4 py-2 text-sm font-semibold text-white"
           >
             Back to Explore
@@ -95,7 +97,7 @@ export default function RequestApplicantsPage() {
             This page only works for requests you created.
           </p>
           <Link
-            href="/explore"
+            href={getContextRoute(pathname, "/explore")}
             className="mt-5 inline-flex rounded-xl bg-[#2D6BFF] px-4 py-2 text-sm font-semibold text-white"
           >
             Back to Explore
@@ -117,7 +119,7 @@ export default function RequestApplicantsPage() {
           </button>
 
           <Link
-            href={`/explore/${requestItem.id}`}
+            href={getContextRoute(pathname, `/explore/${requestItem.id}`)}
             className="text-sm font-semibold text-[#2D6BFF]"
           >
             View Request

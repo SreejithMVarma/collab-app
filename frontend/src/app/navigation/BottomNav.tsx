@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Briefcase, Compass, CalendarDays, CircleUserRound } from "lucide-react";
+import { deriveRoutePrefix } from "@/lib/route-utils";
 
 type NavItem = {
   label: string;
@@ -43,11 +44,6 @@ const baseNavItems: NavItem[] = [
     match: ["/profile"],
   },
 ];
-
-function deriveRoutePrefix(pathname: string): string {
-  if (pathname.startsWith("/startup")) return "/startup";
-  return "";
-}
 
 function isItemActive(pathname: string, item: NavItem) {
   if (!pathname) return false;

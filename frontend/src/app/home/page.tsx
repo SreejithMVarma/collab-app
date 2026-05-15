@@ -1,9 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import Header from "../navigation/Header";
 import BottomNav from "../navigation/BottomNav";
+import { getContextRoute } from "@/lib/route-utils";
 
 type ActiveCollab = {
   id: number;
@@ -114,6 +115,7 @@ function normalizeStoredCollab(item: any): ActiveCollab {
 
 export default function HomePage() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const [name, setName] = useState("Rahul");
   const [activeCollabs, setActiveCollabs] = useState<ActiveCollab[]>([]);
@@ -176,7 +178,7 @@ export default function HomePage() {
   }, []);
 
   const go = (path: string) => {
-    router.push(path);
+    router.push(getContextRoute(pathname, path));
   };
 
   const nextImg = (postId: number, total: number) => {

@@ -2,8 +2,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Icon } from "@iconify/react";
+import { getContextRoute } from "@/lib/route-utils";
 
 type Question = {
   id: string;
@@ -71,6 +72,7 @@ const sleep = (ms: number) => new Promise<void>((r) => setTimeout(r, ms));
 
 export default function ProfileBuilderPage() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const [answers, setAnswers] = useState<Record<string, string>>({});
   const [input, setInput] = useState("");
@@ -209,7 +211,7 @@ export default function ProfileBuilderPage() {
   function onContinue() {
     localStorage.setItem("profileCompleted", "true");
     localStorage.setItem("profileAnswers", JSON.stringify(answers));
-    router.push("/home");
+    router.push(getContextRoute(pathname, "/home"));
   }
 
   return (

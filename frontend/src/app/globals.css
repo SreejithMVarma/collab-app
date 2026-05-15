@@ -273,18 +273,15 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  min-height: 100dvh;
-  background: linear-gradient(135deg, #0f0f14 0%, #1a1a2e 40%, #16213e 70%, #0f0f14 100%);
-  padding: 24px;
+  background: transparent;
 }
 
 .device-bezel {
   position: relative;
   width: 396px;
-  background: #111113;
+  background: linear-gradient(135deg, #0f0f14 0%, #1a1a2e 40%, #16213e 70%, #0f0f14 100%);
   border-radius: 44px;
-  border: 1px solid rgba(255,255,255,0.08);
+  
   box-shadow:
     0 0 0 2px #222,
     0 30px 80px rgba(0,0,0,0.6),
@@ -295,6 +292,7 @@ body {
 }
 
 .device-status-bar {
+  position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -303,19 +301,25 @@ body {
   flex-shrink: 0;
 }
 
-.device-status-time {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--text-main);
-}
-
 .device-camera {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  
   width: 12px;
   height: 12px;
   border-radius: 50%;
   background: #1a1a1e;
   border: 2px solid #2a2a2e;
 }
+
+.device-status-time {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-main);
+}
+
+
 
 .device-status-icons {
   display: flex;

@@ -23,11 +23,11 @@ export default function MobileDeviceFrame({ children }: MobileDeviceFrameProps) 
   return (
   <div className="flex h-screen w-screen overflow-hidden items-center justify-center bg-[#171728] px-0">
     <div
-      className="device-frame-outer scale-[0.72] lg:scale-[0.72] xl:scale-[0.72]"
+      className="device-frame-outer scale-[0.82] lg:scale-[0.82] xl:scale-[0.82]"
       style={{ transformOrigin: "center center" }}
     >
       <div
-  className="device-bezel overflow-hidden rounded-[48px] border border-[#24243A] bg-[#171728] shadow-[0_24px_80px_rgba(0,0,0,0.45)]"
+  className="device-bezel overflow-hidden rounded-[48px] "
 >
         {/* Status bar */}
         <div className="device-status-bar">

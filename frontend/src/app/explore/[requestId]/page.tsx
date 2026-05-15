@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, usePathname, useRouter } from "next/navigation";
 import {
   addRequestApplicant,
   getAppliedRequestIds,
@@ -15,6 +15,7 @@ import {
   saveSavedRequestIds,
   type CollaborationPost,
 } from "@/lib/collaboration";
+import { getContextRoute } from "@/lib/route-utils";
 
 type SuggestedCollaborator = {
   id: number;
@@ -385,6 +386,7 @@ function getDomainSignals(tags: string[], title: string, problem: string) {
 
 export default function ExploreRequestDetailPage() {
   const router = useRouter();
+  const pathname = usePathname();
   const params = useParams<{ requestId: string }>();
   const requestId = Number(params?.requestId);
 
@@ -548,7 +550,7 @@ export default function ExploreRequestDetailPage() {
             The request id is missing or invalid.
           </p>
           <Link
-            href="/explore"
+            href={getContextRoute(pathname, "/explore")}
             className="mt-5 inline-flex rounded-xl bg-[#2D6BFF] px-4 py-2 text-sm font-semibold text-white"
           >
             Back to Explore
@@ -567,7 +569,7 @@ export default function ExploreRequestDetailPage() {
             No collaboration request matched this id.
           </p>
           <Link
-            href="/explore"
+            href={getContextRoute(pathname, "/explore")}
             className="mt-5 inline-flex rounded-xl bg-[#2D6BFF] px-4 py-2 text-sm font-semibold text-white"
           >
             Back to Explore
@@ -588,7 +590,7 @@ export default function ExploreRequestDetailPage() {
             ← Back
           </button>
 
-          <Link href="/explore" className="text-sm font-semibold text-[#2D6BFF]">
+          <Link href={getContextRoute(pathname, "/explore")} className="text-sm font-semibold text-[#2D6BFF]">
             Explore
           </Link>
         </div>

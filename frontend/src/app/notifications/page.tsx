@@ -1,10 +1,11 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { Sparkles, Inbox, CheckCircle, MessageCircle, Users, Bell, BellOff } from "lucide-react";
 import Header from "@/app/navigation/Header";
 import BottomNav from "@/app/navigation/BottomNav";
+import { getContextRoute } from "@/lib/route-utils";
 
 type NotiType = "match" | "apply" | "status" | "message" | "cohort" | "system";
 
@@ -110,6 +111,7 @@ function saveList(list: NotificationItem[]) {
 
 export default function NotificationsPage() {
   const router = useRouter();
+  const pathname = usePathname();
 
   const [items, setItems] = useState<NotificationItem[]>([]);
   const [filter, setFilter] = useState<"all" | "unread">("all");
@@ -154,7 +156,7 @@ export default function NotificationsPage() {
     );
     setItems(updated);
     saveList(updated);
-    if (n.href) router.push(n.href);
+    if (n.href) router.push(getContextRoute(pathname, n.href));
   };
 
   return (

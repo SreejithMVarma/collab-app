@@ -1,7 +1,11 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { notFound } from "next/navigation";
 import { FileText, FileBox, Image as ImageIcon, Archive, BarChart2, Folder } from "lucide-react";
 import { sharedFiles } from "@/lib/sharedspace-data";
+import { getContextRoute } from "@/lib/route-utils";
 
 type FileDetailsPageProps = {
   params: {
@@ -19,6 +23,7 @@ const typeTheme: Record<string, { bg: string; text: string; icon: React.ReactNod
 };
 
 export default function FileDetailsPage({ params }: FileDetailsPageProps) {
+  const pathname = usePathname();
   const file = sharedFiles.find((item) => item.id === params.fileId);
 
   if (!file) {
@@ -32,7 +37,7 @@ export default function FileDetailsPage({ params }: FileDetailsPageProps) {
       <div className="mx-auto w-full max-w-md px-4 pt-5 sm:max-w-2xl sm:px-6 md:max-w-4xl lg:max-w-6xl lg:px-8">
         <div className="flex items-center justify-between gap-3">
           <Link
-            href="/sharedspace"
+            href={getContextRoute(pathname, "/sharedspace")}
             className="rounded-full border border-[#E5E5E5] bg-white px-4 py-2 text-[13px] font-semibold text-[#111111] shadow-[0_4px_14px_rgba(0,0,0,0.03)] sm:text-[14px]"
           >
             ← Back

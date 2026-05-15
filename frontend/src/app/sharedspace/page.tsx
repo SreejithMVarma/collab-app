@@ -1,7 +1,5 @@
 "use client";
 import { usePathname } from "next/navigation";
-
-
 import Link from "next/link";
 import { useMemo, useState } from "react";
 import {
@@ -23,9 +21,7 @@ import {
 } from "lucide-react";
 import type { SharedFileItem, SharedFileType } from "@/lib/sharedspace-data";
 import { sharedFiles as initialSharedFiles, sharedFolders } from "@/lib/sharedspace-data";
-
-const pathname = usePathname();
-const homeHref = pathname.startsWith("/startup") ? "/startup/home" : "/home";
+import { getContextRoute } from "@/lib/route-utils";
 
 type FilterType = "all" | SharedFileType;
 
@@ -172,6 +168,8 @@ function FolderRow({
 }
 
 export default function SharedSpacePage() {
+  const pathname = usePathname();
+  
   const [files, setFiles] = useState(initialSharedFiles);
   const [activeFilter, setActiveFilter] = useState<FilterType>("all");
   const [searchText, setSearchText] = useState("");
@@ -431,23 +429,23 @@ export default function SharedSpacePage() {
       </button>
 
       <nav className="fixed bottom-0 left-1/2 z-40 flex w-full max-w-[480px] -translate-x-1/2 items-center justify-around border-t border-[#E7E7E7] bg-white px-3 py-3 shadow-[0_-4px_18px_rgba(0,0,0,0.03)]">
-        <Link href={homeHref} className="flex flex-col items-center gap-1 text-[#6C6C6C]">
+        <Link href={getContextRoute(pathname, "/home")} className="flex flex-col items-center gap-1 text-[#6C6C6C]">
           <Home size={20} />
           <span className="text-[12px]">Home</span>
         </Link>
-        <Link href="/explore" className="flex flex-col items-center gap-1 text-[#6C6C6C]">
+        <Link href={getContextRoute(pathname, "/explore")} className="flex flex-col items-center gap-1 text-[#6C6C6C]">
           <Search size={20} />
           <span className="text-[12px]">Explore</span>
         </Link>
-        <Link href="/create" className="flex flex-col items-center gap-1 text-[#6C6C6C]">
+        <Link href={getContextRoute(pathname, "/create")} className="flex flex-col items-center gap-1 text-[#6C6C6C]">
           <Plus size={20} />
           <span className="text-[12px]">Create</span>
         </Link>
-        <Link href="/events" className="flex flex-col items-center gap-1 text-[#111111]">
+        <Link href={getContextRoute(pathname, "/events")} className="flex flex-col items-center gap-1 text-[#111111]">
           <CalendarDays size={20} />
           <span className="text-[12px] font-semibold">Events</span>
         </Link>
-        <Link href="/profile" className="flex flex-col items-center gap-1 text-[#6C6C6C]">
+        <Link href={getContextRoute(pathname, "/profile")} className="flex flex-col items-center gap-1 text-[#6C6C6C]">
           <User size={20} />
           <span className="text-[12px]">Profile</span>
         </Link>
