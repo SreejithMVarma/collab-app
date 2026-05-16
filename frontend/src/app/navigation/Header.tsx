@@ -8,6 +8,13 @@ import { deriveRoutePrefix } from "@/lib/route-utils";
 
 type HeaderVariant = "default" | "profile";
 
+interface HeaderProps {
+  title: string;
+  subtitle?: string;
+  showNotificationDot?: boolean;
+  variant?: HeaderVariant;
+}
+
 export default function Header({
   title,
   subtitle,
