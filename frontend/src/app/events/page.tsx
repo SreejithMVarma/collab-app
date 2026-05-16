@@ -180,7 +180,7 @@ export default function EventsPage() {
   const filterPills: { key: FilterKey; label: string }[] = [
     { key: "all", label: "recommended" },
     { key: "free", label: "robotics" },
-    { key: "paid", label: "startup mixers" },
+    { key: "paid", label: "startup" },
     { key: "online", label: "online" },
   ];
 
